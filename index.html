@@ -77,12 +77,16 @@
     menu.addEventListener('click',()=>links.classList.toggle('open'));
     links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
     document.getElementById('year').textContent=new Date().getFullYear();
-    document.getElementById('bookingForm').addEventListener('submit',e=>{
+    document.getElementById('bookingForm').addEventListener('submit',function(e){
       e.preventDefault();
-      const data=new FormData(e.currentTarget);
-      const summary=[...data.entries()].filter(([k,v])=>v).map(([k,v])=>k+': '+v).join('\\n');
-      const body=encodeURIComponent('Assalam-o-Alaikum EventAura! I would like to enquire about an event.\\n\\n'+summary);
-      window.open('https://wa.me/923005019272?text='+body,'_blank','noopener');
+      const form=e.currentTarget;
+      if(!form.reportValidity()) return;
+      const data=new FormData(form);
+      const labels={name:'Name',phone:'Phone',event:'Event type',city:'City',date:'Event date',guests:'Expected guests',message:'Message'};
+      const summary=[...data.entries()].filter(([key,value])=>String(value).trim()!=='').map(([key,value])=>(labels[key]||key)+': '+value).join('\n');
+      const message='Assalam-o-Alaikum EventAura! I would like to enquire about an event.\n\n'+summary;
+      const whatsappUrl='https://wa.me/923005019272?text='+encodeURIComponent(message);
+      window.location.href=whatsappUrl;
     });
   </script>
 </body>
