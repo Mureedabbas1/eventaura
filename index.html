@@ -93,6 +93,12 @@ html[data-theme="dark"] .section-head p,html[data-theme="dark"] .hero-copy,html[
 html[data-theme="dark"] .theme-toggle{background:#332633;color:#ffe0eb;border-color:#745568}
 @media(max-width:850px){.theme-toggle{padding:9px 11px;font-size:11px}}
 </style>
+<style>
+/* Always-visible floating theme switch */
+.theme-toggle{position:fixed!important;right:18px!important;bottom:18px!important;top:auto!important;z-index:99999!important;display:inline-flex!important;min-height:46px;padding:12px 18px!important;border-radius:999px!important;background:#fff!important;color:#8f3f60!important;border:1px solid #d9b8c5!important;box-shadow:0 8px 28px rgba(40,15,30,.24)!important;font-size:13px!important;font-weight:700!important;}
+html[data-theme="dark"] .theme-toggle{background:#332633!important;color:#ffe0eb!important;border-color:#d8b77a!important;}
+@media(max-width:520px){.theme-toggle{right:12px!important;bottom:12px!important;min-height:44px;padding:11px 15px!important;}}
+</style>
 </head>
 <body>
   <div class="topline"></div>
