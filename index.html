@@ -80,7 +80,7 @@
     links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
     document.getElementById('year').textContent=new Date().getFullYear();
     // Set this after deploying the Google Apps Script described in GOOGLE-SHEETS-REVIEWS-SETUP.md.
-    const REVIEWS_API_URL = 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
+    const REVIEWS_API_URL = 'https://script.google.com/macros/s/AKfycbw6Ly5lnHt1BuUiKsv0G2xctDhSyy9Bm38UEmw9YqsDEqeju18oFtiEEzkMiVsndwbI/exec';
 
     function loadPublishedReviews(){
       const host=document.getElementById('publishedReviews');
@@ -91,12 +91,12 @@
       const callback='eventAuraReviews_'+Date.now();
       window[callback]=function(data){
         delete window[callback];
-        if(!data || !Array.isArray(data.reviews) || data.reviews.length===0){
+        if(!Array.isArray(data) || data.length===0){
           host.innerHTML='<p class="no-reviews">Be the first to share your EventAura experience.</p>';
           return;
         }
         host.innerHTML='';
-        data.reviews.forEach(review=>{
+        data.forEach(review=>{
           const card=document.createElement('article');
           card.className='published-review';
           const stars=document.createElement('div');
@@ -130,9 +130,14 @@
         status.textContent='Review submission is being set up. Please try again shortly.';
         return;
       }
-      const payload=Object.fromEntries(new FormData(form).entries());
-      payload.action='submit';
-      payload.website='';
+      const formValues=Object.fromEntries(new FormData(form).entries());
+      const payload={
+        name:formValues.customer_name,
+        event:formValues.event_type,
+        rating:Number(String(formValues.rating).match(/[1-5]/)?.[0]||0),
+        review:formValues.review,
+        website:''
+      };
       button.disabled=true;
       button.textContent='Sending review…';
       status.textContent='Sending your review for approval…';
