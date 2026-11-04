@@ -253,6 +253,77 @@ html[data-theme="dark"] .theme-toggle{background:#332633!important;color:#ffe0eb
       </div>
     </section>
 
+<section class="dropdash-floating-edit" id="dropdash-floating-edit" aria-labelledby="dropdash-floating-title" style="width:calc(100% - 32px);max-width:1120px;margin:20px auto;box-sizing:border-box;">
+      <style>
+        .dropdash-floating-edit{position:relative;isolation:isolate;overflow:hidden;margin-top:clamp(24px,4vw,52px);margin-bottom:clamp(24px,4vw,52px);padding:clamp(18px,3vw,38px) clamp(12px,2.5vw,26px);border:1px solid rgba(201,169,106,.25);border-radius:22px;background:radial-gradient(ellipse at 50% 45%,rgba(201,169,106,.13),transparent 62%),linear-gradient(135deg,#11110f,#090909 70%);box-shadow:0 24px 70px rgba(0,0,0,.22)}
+        .dropdash-floating-edit:before,.dropdash-floating-edit:after{content:"";position:absolute;z-index:-1;width:260px;height:260px;border:1px solid rgba(201,169,106,.12);border-radius:50%;pointer-events:none}
+        .dropdash-floating-edit:before{top:-145px;left:-110px}.dropdash-floating-edit:after{right:-130px;bottom:-175px;width:340px;height:340px}
+        .dropdash-floating-head{position:relative;z-index:2;max-width:700px;margin:0 auto 8px;text-align:center}
+        .dropdash-floating-head .eyebrow{color:#d5b77b}.dropdash-floating-head h2{margin:8px 0 12px;color:#f5f0e6;font:400 clamp(24px,3vw,32px)/1.05 "Cormorant Garamond",Georgia,serif;letter-spacing:-.025em}.dropdash-floating-head h2 em{color:#d7ba7d;font-weight:400}.dropdash-floating-head p:not(.eyebrow){max-width:520px;margin:0 auto;color:#b9b2a5;font:400 12px/1.8 Manrope,Arial,sans-serif}
+        .dropdash-floating-stage{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:center;gap:13px;max-width:820px;margin:0 auto;padding:2px 0 6px}
+        .dropdash-float-card{position:relative;display:flex;flex-direction:column;align-items:center;min-width:0;padding:6px 6px 8px;overflow:hidden;border:1px solid rgba(201,169,106,.26);border-radius:12px;background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.018));box-shadow:0 15px 35px rgba(0,0,0,.28);text-decoration:none;color:#f4eee2;transition:border-color .25s,box-shadow .25s}
+        .dropdash-float-card:nth-child(odd){animation:dropdashFloat 5.2s ease-in-out infinite}.dropdash-float-card:nth-child(even){animation:dropdashFloat 6.1s ease-in-out -2s infinite}.dropdash-float-card:nth-child(3n){animation-delay:-3.3s}
+        .dropdash-float-card:hover,.dropdash-float-card:focus-visible{border-color:#d9bb7b;box-shadow:0 18px 42px rgba(201,169,106,.17);outline:none}
+        .dropdash-float-image{display:grid;place-items:center;width:100%;height:clamp(65px,8vw,95px);overflow:hidden;border-radius:8px;background:linear-gradient(135deg,#24221c,#111)}
+        .dropdash-float-image img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}.dropdash-float-card:hover .dropdash-float-image img{transform:scale(1.06)}
+        .dropdash-float-label{margin-top:6px;color:#e9d5a8;font:700 9px/1.4 Manrope,Arial,sans-serif;letter-spacing:.15em;text-align:center;text-transform:uppercase}
+        .dropdash-float-cta{margin-top:3px;color:#aaa295;font:500 10px/1.4 Manrope,Arial,sans-serif;text-align:center}
+        .dropdash-floating-bottom{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+        .dropdash-floating-bottom .button{min-width:150px}.dropdash-affiliate-note{max-width:820px;margin:0;color:#898276;font:400 9px/1.7 Manrope,Arial,sans-serif;text-align:center}
+        @keyframes dropdashFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        @media(max-width:600px){.dropdash-floating-stage{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.dropdash-float-card{padding:5px 5px 7px;border-radius:10px}.dropdash-float-image{height:clamp(65px,19vw,85px)}.dropdash-float-card:nth-child(3n){display:flex}.dropdash-floating-edit{border-radius:16px}}
+        @media(prefers-reduced-motion:reduce){.dropdash-float-card{animation:none!important;transition:none}.dropdash-float-image img{transition:none}}
+      
+        .dropdash-floating-edit{width:calc(100% - 32px);max-width:1120px;margin:clamp(24px,4vw,52px) auto;padding:clamp(18px,3vw,38px) clamp(12px,2.5vw,26px);box-sizing:border-box}
+        .dropdash-logo-tag{position:absolute!important;top:14px!important;left:14px!important;right:auto!important;z-index:50!important;display:flex!important;align-items:center!important;justify-content:center!important;width:160px!important;height:68px!important;padding:0!important;overflow:hidden!important;border:1px solid rgba(255,255,255,.2)!important;border-radius:10px!important;background:#fff!important;box-shadow:0 5px 18px rgba(0,0,0,.22)!important}
+        .dropdash-logo-tag img{display:block!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:contain!important;object-position:center!important;margin:0!important;padding:0!important;border-radius:9px!important}
+        .dropdash-logo-tag span{display:none!important}
+        .dropdash-shop-all{display:inline-flex;align-items:center;justify-content:center;min-width:150px;padding:13px 24px;border:1px solid #d8b77a;border-radius:999px;background:linear-gradient(135deg,#f7dfb1,#d8b77a);color:#35232d;font:700 12px 'DM Sans',sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.18);transition:transform .2s,box-shadow .2s}
+        .dropdash-shop-all:hover{transform:translateY(-2px);box-shadow:0 7px 18px rgba(0,0,0,.24)}
+        @media(max-width:600px){.dropdash-logo-tag{top:9px!important;left:9px!important;width:140px!important;height:58px!important;border-radius:9px!important}}
+        </style>
+      <style>
+        .dropdash-logo-tag{position:absolute!important;top:14px!important;left:14px!important;right:auto!important;z-index:50!important;display:flex!important;align-items:center!important;justify-content:center!important;width:160px!important;height:68px!important;box-sizing:border-box!important;padding:0!important;overflow:hidden!important;border:1px solid rgba(255,255,255,.2)!important;border-radius:10px!important;background:#fff!important;box-shadow:0 5px 18px rgba(0,0,0,.22)!important}
+        .dropdash-logo-tag img{display:block!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:contain!important;object-position:center!important;margin:0!important;padding:0!important;border-radius:9px!important;overflow:hidden!important}
+        .dropdash-logo-tag span{display:none!important}
+        .dropdash-floating-edit{position:relative}
+        @media(max-width:600px){.dropdash-logo-tag{top:9px!important;left:9px!important;right:auto!important;width:140px!important;height:58px!important;padding:0!important;border-radius:9px!important}}
+      </style>
+      <a class="dropdash-logo-tag" href="https://dropdash.pk/?ref=759V327" target="_blank" rel="sponsored nofollow noopener noreferrer" aria-label="Shop with DropDash">
+        <img src="https://raw.githubusercontent.com/Mureedabbas1/marf-pakistan-store/main/Screenshot%202026-10-29%20220816.png" alt="DropDash" loading="lazy">
+        <span>Partner</span>
+      </a>
+      <div class="dropdash-floating-head">
+        <p class="eyebrow">THE DISCOVERY EDIT · PARTNER PICKS</p>
+        <h2 id="dropdash-floating-title">Find something <em>different.</em></h2>
+        <p>Click any product below to explore and shop affordable products at great prices.</p>
+      </div>
+      <div class="dropdash-floating-stage" aria-label="Featured product categories">
+        <a class="dropdash-float-card" href="https://dropdash.pk/?ref=759V327" target="_blank" rel="sponsored nofollow noopener noreferrer" aria-label="Shop smart watches">
+          <span class="dropdash-float-image"><img decoding="async" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=700&q=75" alt="Minimal wristwatch" loading="lazy"></span><span class="dropdash-float-label">Smart watches</span><span class="dropdash-float-cta">Shop affordable finds ↗</span>
+        </a>
+        <a class="dropdash-float-card" href="https://dropdash.pk/?ref=759V327" target="_blank" rel="sponsored nofollow noopener noreferrer" aria-label="Shop headphones and tech">
+          <span class="dropdash-float-image"><img decoding="async" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=700&q=75" alt="Wireless headphones" loading="lazy"></span><span class="dropdash-float-label">Audio & tech</span><span class="dropdash-float-cta">Shop affordable finds ↗</span>
+        </a>
+        <a class="dropdash-float-card" href="https://dropdash.pk/?ref=759V327" target="_blank" rel="sponsored nofollow noopener noreferrer" aria-label="Shop bags and accessories">
+          <span class="dropdash-float-image"><img decoding="async" src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=700&q=75" alt="Everyday backpack" loading="lazy"></span><span class="dropdash-float-label">Bags & carry</span><span class="dropdash-float-cta">Shop affordable finds ↗</span>
+        </a>
+        <a class="dropdash-float-card" href="https://dropdash.pk/?ref=759V327" target="_blank" rel="sponsored nofollow noopener noreferrer" aria-label="Shop beauty and skincare">
+          <span class="dropdash-float-image"><img decoding="async" src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=700&q=75" alt="Beauty and skincare products" loading="lazy"></span><span class="dropdash-float-label">Beauty & care</span><span class="dropdash-float-cta">Shop affordable finds ↗</span>
+        </a>
+        <a class="dropdash-float-card" href="https://dropdash.pk/?ref=759V327" target="_blank" rel="sponsored nofollow noopener noreferrer" aria-label="Shop style accessories">
+          <span class="dropdash-float-image"><img decoding="async" src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=700&q=75" alt="Sunglasses and fashion accessories" loading="lazy"></span><span class="dropdash-float-label">Style essentials</span><span class="dropdash-float-cta">Shop affordable finds ↗</span>
+        </a>
+        <a class="dropdash-float-card" href="https://dropdash.pk/?ref=759V327" target="_blank" rel="sponsored nofollow noopener noreferrer" aria-label="Shop home and lifestyle products">
+          <span class="dropdash-float-image"><img decoding="async" src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=700&q=75" alt="Calm home and lifestyle decor" loading="lazy"></span><span class="dropdash-float-label">Home & lifestyle</span><span class="dropdash-float-cta">Shop affordable finds ↗</span>
+        </a>
+      </div>
+      <div class="dropdash-floating-bottom">
+        <a class="dropdash-shop-all" href="https://dropdash.pk/?ref=759V327" target="_blank" rel="sponsored nofollow noopener noreferrer">Shop all products ↗</a>
+        <p class="dropdash-affiliate-note">Partner link disclosure: EventAura may receive a referral benefit if you visit or shop through these links. Product availability and prices are shown on the retailer’s website.</p>
+      </div>
+    </section>
+
   </main>
   <footer><div class="container"><div class="footer-row"><div class="footer-brand">Event<span>Aura</span></div><div class="footer-copy">© <span id="year"></span> EventAura. Moments made magical.</div><div class="footer-links"><a href="/services.html">Services</a><a href="/gallery.html">Gallery</a><a href="/contact.html">Contact</a><a href="https://www.instagram.com/eventaura1/" target="_blank" rel="noopener">Instagram</a><a class="footer-support-btn" href="https://mail.google.com/mail/?view=cm&fs=1&to=support%40eventaura.space" target="_blank" rel="noopener noreferrer" aria-label="Email EventAura Support">Support&nbsp; ↗</a><a href="https://wa.me/923005019272" target="_blank" rel="noopener">WhatsApp</a></div></div></div></footer>
   <script>
