@@ -18,10 +18,7 @@ This gives EventAura a simple moderation workflow without Supabase. New reviews 
 5. Click **Deploy**, authorize if asked, and copy the Web app URL. It should end in `/exec`.
 
 ## 3. Connect the website
-1. Open `index.html` in the EventAura GitHub repository.
-2. Find `PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE`.
-3. Replace that exact text with the Web app URL you copied. Keep the single quotes around the URL.
-4. Commit the change. GitHub Pages will publish it automatically.
+The current website is already connected to its deployed Apps Script endpoint in `index.html`. If you create a replacement deployment, update the `REVIEWS_API_URL` constant there with the new `/exec` URL and commit the change. Do not replace it with the old placeholder text.
 
 ## 4. Approve reviews
 1. Open the **EventAura Customer Reviews** Google Sheet.
