@@ -329,7 +329,7 @@ function eventAuraWhatsApp(row){
  }else if(status==='cancelled'){
   opening='Your EventAura booking has been marked as cancelled. If you have any questions or need assistance, please feel free to contact us.';
  }else{
-  opening='We have received your EventAura booking request. However, your advance payment is still pending. Kindly complete the advance payment so we can confirm your booking. Please note that your booking will remain unconfirmed until the payment is received.';
+  opening='We have received your EventAura booking request. Your advance payment is still pending. Please pay the advance amount to confirm your booking. Your booking will remain unconfirmed until the advance payment is received.';
  }
  const lines=['Hello '+(row.Customer||'')+'!','',opening];
  if(status!=='completed'){
