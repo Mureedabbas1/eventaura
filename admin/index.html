@@ -350,16 +350,51 @@ th,td,.booking-row td{border-bottom-color:#4a3d47!important}
 #appView #stats .dashboard-stat-8{background:#fff4df!important;border-color:#f3e1b8!important;border-left-color:#d49a24!important;color:#80570b!important}
 #appView #stats .dashboard-stat-9{background:#e8f2ff!important;border-color:#cfe1fb!important;border-left-color:#3479ca!important;color:#174f91!important}
 #appView #stats .dashboard-stat-10{background:#e5f7eb!important;border-color:#c8ebd3!important;border-left-color:#239653!important;color:#176b38!important}
-/* FINAL FIX: dashboard stat text must use each card's own dark semantic colour, not the workspace's global white text fill */
-#appView #stats .dashboard-stat,
-#appView #stats .dashboard-stat label,
-#appView #stats .dashboard-stat strong,
-#appView #stats .dashboard-stat *{
-  color:inherit!important;
-  -webkit-text-fill-color:currentColor!important;
-  opacity:1!important;
-  visibility:visible!important;
-}
+/* HARD OVERRIDE: force readable dark text on every dashboard statistic card */
+#appView #stats .dashboard-stat-0,
+#appView #stats .dashboard-stat-0 *,
+#appView #stats .dashboard-stat-0 label,
+#appView #stats .dashboard-stat-0 strong{color:#5930a6!important;-webkit-text-fill-color:#5930a6!important}
+#appView #stats .dashboard-stat-1,
+#appView #stats .dashboard-stat-1 *,
+#appView #stats .dashboard-stat-1 label,
+#appView #stats .dashboard-stat-1 strong{color:#175a9c!important;-webkit-text-fill-color:#175a9c!important}
+#appView #stats .dashboard-stat-2,
+#appView #stats .dashboard-stat-2 *,
+#appView #stats .dashboard-stat-2 label,
+#appView #stats .dashboard-stat-2 strong{color:#3545a6!important;-webkit-text-fill-color:#3545a6!important}
+#appView #stats .dashboard-stat-3,
+#appView #stats .dashboard-stat-3 *,
+#appView #stats .dashboard-stat-3 label,
+#appView #stats .dashboard-stat-3 strong{color:#88520b!important;-webkit-text-fill-color:#88520b!important}
+#appView #stats .dashboard-stat-4,
+#appView #stats .dashboard-stat-4 *,
+#appView #stats .dashboard-stat-4 label,
+#appView #stats .dashboard-stat-4 strong{color:#086b65!important;-webkit-text-fill-color:#086b65!important}
+#appView #stats .dashboard-stat-5,
+#appView #stats .dashboard-stat-5 *,
+#appView #stats .dashboard-stat-5 label,
+#appView #stats .dashboard-stat-5 strong{color:#7135a5!important;-webkit-text-fill-color:#7135a5!important}
+#appView #stats .dashboard-stat-6,
+#appView #stats .dashboard-stat-6 *,
+#appView #stats .dashboard-stat-6 label,
+#appView #stats .dashboard-stat-6 strong{color:#176b36!important;-webkit-text-fill-color:#176b36!important}
+#appView #stats .dashboard-stat-7,
+#appView #stats .dashboard-stat-7 *,
+#appView #stats .dashboard-stat-7 label,
+#appView #stats .dashboard-stat-7 strong{color:#a32222!important;-webkit-text-fill-color:#a32222!important}
+#appView #stats .dashboard-stat-8,
+#appView #stats .dashboard-stat-8 *,
+#appView #stats .dashboard-stat-8 label,
+#appView #stats .dashboard-stat-8 strong{color:#80570b!important;-webkit-text-fill-color:#80570b!important}
+#appView #stats .dashboard-stat-9,
+#appView #stats .dashboard-stat-9 *,
+#appView #stats .dashboard-stat-9 label,
+#appView #stats .dashboard-stat-9 strong{color:#174f91!important;-webkit-text-fill-color:#174f91!important}
+#appView #stats .dashboard-stat-10,
+#appView #stats .dashboard-stat-10 *,
+#appView #stats .dashboard-stat-10 label,
+#appView #stats .dashboard-stat-10 strong{color:#176b38!important;-webkit-text-fill-color:#176b38!important}
 </style></head><body>
 <section class="login" id="loginView"><div class="loginbox"><div class="logo"><img src="/ev.jpg?v=4" alt="EventAura"></div><div class="eyebrow" style="margin-top:18px">EVENTAURA · PRIVATE WORKSPACE</div><h1>Admin Login</h1><p class="muted">Sign in with your authorised EventAura administrator account.</p><form id="loginForm"><div class="field"><label for="email">Administrator email</label><input id="email" type="email" autocomplete="username" required></div><div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required></div><button class="btn" id="loginBtn" type="submit" style="width:100%">Secure Login</button><div class="error" id="loginError"></div></form><button class="btn" type="button" id="forgotPassword" style="display:block;width:100%;margin-top:12px;background:#fff;color:#88727d;border:1px solid #cfc3c9;font-weight:800;padding:13px">Forgot Password? Click Here</button><div class="notice">Access is restricted by Supabase Auth and database Row Level Security. Only accounts granted the EventAura admin role can open this workspace.</div></div></section>
 <div class="layout hidden" id="appView"><aside class="side" id="side"><div class="brand"><div class="logo"><img src="/ev.jpg?v=4" alt="EventAura"></div><div><b>EventAura</b><small>ADMIN CONTROL CENTRE</small></div></div><div class="group">WORKSPACE</div><nav class="nav" id="nav"></nav></aside><main class="main"><header class="top"><div><button class="btn2 menu" id="menu">☰</button><div class="eyebrow">EVENTAURA · MANAGEMENT</div><h1 id="pageTitle">Dashboard</h1></div><div class="topright"><button class="btn" type="button" id="addNewBooking">＋ Add New Booking</button><span class="pill">Lahore · Gujranwala</span><button class="btn2" id="logoutBtn">Log out</button></div></header>
