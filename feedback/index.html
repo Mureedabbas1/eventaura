@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fff8fb">
+<meta name="description" content="Share your experience with EventAura. Your feedback helps us make every celebration special.">
+<link rel="canonical" href="https://eventaura.space/feedback/">
+<link rel="icon" type="image/jpeg" href="/ev.jpg?v=5">
+<title>Share Your Feedback | EventAura</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#d96b91;--pink-dark:#a94369;--rose:#f8e6ed;--cream:#fff9f6;--gold:#bd9860;--ink:#382630;--muted:#806d76}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#fff7fa,#fffaf6);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh}
+header{background:rgba(255,249,246,.9);border-bottom:1px solid #f0dfe6;padding:16px 22px}.nav{max-width:900px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font:600 25px 'Playfair Display',serif}.brand img{width:48px;height:48px;object-fit:contain;border-radius:50%}.brand span span{color:var(--pink)}.home{color:var(--pink-dark);font-size:13px;font-weight:700;text-decoration:none}
+main{width:min(760px,calc(100% - 30px));margin:48px auto 65px}.intro{text-align:center;margin-bottom:28px}.eyebrow{color:var(--pink-dark);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase}.intro h1{font:600 clamp(34px,6vw,48px)/1.15 'Playfair Display',serif;margin:12px 0}.intro p{font-size:14px;line-height:1.8;color:var(--muted);max-width:560px;margin:auto}
+.panel{background:rgba(255,255,255,.9);border:1px solid #f0dce5;border-radius:22px;padding:clamp(20px,5vw,34px);box-shadow:0 18px 55px rgba(105,48,72,.12);margin-bottom:22px}.panel h2{font:600 26px 'Playfair Display',serif;text-align:center;margin:0 0 7px}.sub{text-align:center;color:var(--muted);font-size:12px;line-height:1.7;margin:0 0 24px}.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{margin-bottom:15px}.field label{display:block;font-size:11px;font-weight:700;color:#705965;margin-bottom:7px}.field input,.field select,.field textarea{width:100%;border:1px solid #ead7df;background:#fff;border-radius:10px;padding:13px;font:13px 'DM Sans',sans-serif;color:var(--ink);outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--pink)}.field textarea{min-height:135px;resize:vertical}button{width:100%;border:0;border-radius:999px;padding:14px 20px;background:linear-gradient(135deg,#df7d9e,#bd557d);color:white;font:700 13px 'DM Sans',sans-serif;cursor:pointer;box-shadow:0 9px 22px rgba(190,85,125,.22)}button:disabled{opacity:.65;cursor:wait}.note,.status{text-align:center;font-size:11px;line-height:1.7;color:var(--muted);margin:12px 0 0}.status{font-size:13px;color:var(--pink-dark)}.reviews{display:grid;grid-template-columns:1fr 1fr;gap:14px}.review{background:#fffaf8;border:1px solid #f0dce5;border-radius:14px;padding:17px}.stars{color:var(--gold);letter-spacing:2px}.review strong{display:block;font:600 17px 'Playfair Display',serif;margin:7px 0 3px}.review small{color:#9a7d89;font-size:10px}.review p{color:#705965;font-size:12px;line-height:1.75;margin:10px 0 0;overflow-wrap:anywhere}.loading{grid-column:1/-1;text-align:center;color:var(--muted);font-size:12px;padding:14px}footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}footer a{color:var(--pink-dark);font-weight:700;text-decoration:none}
+@media(max-width:560px){main{margin:32px auto 45px}.row,.reviews{grid-template-columns:1fr}.brand{font-size:22px}.brand img{width:42px;height:42px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><a class="brand" href="/"><img src="/ev.jpg?v=5" alt="EventAura logo"><span>Event<span>Aura</span></span></a><a class="home" href="/">Back to website ↗</a></div></header>
+<main>
+<div class="intro"><span class="eyebrow">Your experience matters</span><h1>Share Your EventAura Story</h1><p>Thank you for celebrating with EventAura. Tell us about your experience — your honest feedback helps us serve you and other families better.</p></div>
+<section class="panel"><h2>We'd love to hear from you</h2><p class="sub">Please take a moment to share your review.</p>
+<form id="reviewForm">
+<div class="row"><div class="field"><label for="reviewName">Your name</label><input id="reviewName" name="customer_name" placeholder="Your full name" required maxlength="80"></div>
+<div class="field"><label for="reviewEvent">Which event did we style?</label><select id="reviewEvent" name="event_type" required><option value="">Choose event</option><option>Birthday</option><option>Nikah</option><option>Engagement</option><option>Bridal Shower</option><option>Family Event</option><option>Other</option></select></div></div>
+<div class="field"><label for="reviewRating">Your rating</label><select id="reviewRating" name="rating" required><option value="">Select stars</option><option value="5 stars">★★★★★ — Excellent</option><option value="4 stars">★★★★☆ — Very good</option><option value="3 stars">★★★☆☆ — Good</option><option value="2 stars">★★☆☆☆ — Could be better</option><option value="1 star">★☆☆☆☆ — Needs improvement</option></select></div>
+<div class="field"><label for="reviewText">Your review</label><textarea id="reviewText" name="review" placeholder="Tell us what you liked or what we can improve..." required minlength="8" maxlength="1200"></textarea></div>
+<button type="submit">Submit Your Review ↗</button><p class="note">Your review is sent to EventAura for approval before it appears publicly.</p><p class="status" id="reviewStatus" role="status" aria-live="polite"></p>
+</form></section>
+<section class="panel"><h2>Kind Words From Our Clients</h2><p class="sub">Experiences shared by families who celebrated with EventAura.</p><div id="publishedReviews" class="reviews"><p class="loading">Loading customer reviews…</p></div></section>
+</main>
+<footer>© <span id="year"></span> EventAura · <a href="/">eventaura.space</a></footer>
+<script>
+const REVIEWS_API_URL='https://script.google.com/macros/s/AKfycbw6Ly5lnHt1BuUiKsv0G2xctDhSyy9Bm38UEmw9YqsDEqeju18oFtiEEzkMiVsndwbI/exec';
+document.getElementById('year').textContent=new Date().getFullYear();
+function loadPublishedReviews(){
+ const host=document.getElementById('publishedReviews');
+ const callback='eventAuraFeedback_'+Date.now();
+ window[callback]=function(data){
+  delete window[callback];
+  const reviews=Array.isArray(data)?data:(data&&Array.isArray(data.reviews)?data.reviews:[]);
+  if(!reviews.length){host.innerHTML='<p class="loading">Be the first to share your EventAura experience.</p>';return;}
+  host.innerHTML='';
+  reviews.forEach(review=>{
+   const card=document.createElement('article');card.className='review';
+   const stars=document.createElement('div');stars.className='stars';
+   const rating=Math.max(1,Math.min(5,Number(review.rating)||0));stars.textContent='★'.repeat(rating)+'☆'.repeat(5-rating);
+   const name=document.createElement('strong');name.textContent=review.name||'EventAura Customer';
+   const meta=document.createElement('small');meta.textContent=(review.event||'Event')+(review.date?' · '+review.date:'');
+   const quote=document.createElement('p');quote.textContent=review.review||'';
+   card.append(stars,name,meta,quote);host.append(card);
+  });
+ };
+ const script=document.createElement('script');script.src=REVIEWS_API_URL+'?action=list&callback='+callback;
+ script.onerror=()=>{host.innerHTML='<p class="loading">Reviews are temporarily unavailable.</p>';delete window[callback];};
+ document.body.appendChild(script);
+}
+loadPublishedReviews();
+document.getElementById('reviewForm').addEventListener('submit',function(e){
+ e.preventDefault();const form=e.currentTarget;if(!form.reportValidity())return;
+ const button=form.querySelector('button[type="submit"]');const status=document.getElementById('reviewStatus');
+ const values=Object.fromEntries(new FormData(form).entries());
+ const payload={name:values.customer_name,event:values.event_type,rating:Number(String(values.rating).match(/[1-5]/)?.[0]||0),review:values.review,website:''};
+ button.disabled=true;button.textContent='Sending review…';status.textContent='Sending your review for approval…';
+ fetch(REVIEWS_API_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)})
+ .then(()=>{form.reset();status.textContent='Thank you! Your review has been submitted and will appear after EventAura approves it.';})
+ .catch(()=>{status.textContent='Sorry, your review could not be sent. Please try again later.';})
+ .finally(()=>{button.disabled=false;button.textContent='Submit Your Review ↗';});
+});
+</script>
+</body>
+</html>
