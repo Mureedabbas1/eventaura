@@ -326,7 +326,7 @@ function eventAuraWhatsApp(row){
  }else if(status==='cancelled'){
   opening='Aap ki EventAura booking filhal cancel mark ki gayi hai. Agar aap ko is hawale se koi sawal ho to hum se rabta karein.';
  }else{
-  opening='Aap ki EventAura booking request receive ho gayi hai, lekin abhi pending hai. Booking confirm karwane ke liye advance payment aur us ki tasdeeq zaroori hai.';
+  opening='Aap ki EventAura booking request receive ho gayi hai, lekin aap ki payment abhi pending hai. Barah-e-karam advance payment jald jama karwa dein taa-ke aap ki booking confirm ki ja sake.';
  }
  const lines=['Assalam-o-Alaikum '+(row.Customer||'')+'!','',opening,'','Booking Details:','Booking ID: '+(row['Booking ID']||'—'),'Event Date: '+(row['Event Date']||'—'),'Venue: '+([row.Venue,row.City].filter(Boolean).join(', ')||'—'),'Total Bill: '+money(row.Budget),'Advance Received: '+money(row.Advance),'Remaining Balance: '+money(due),'','Mazeed maloomat ke liye hum se rabta karein.','Shukriya, Team EventAura'];
  window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(lines.join('\n')),'_blank','noopener');
