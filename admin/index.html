@@ -304,7 +304,7 @@ async function loadQuickBookingOptions(){ return; }
 function updateQuickPaymentPreview(){
  const n=id=>Number($(id)?.value||0),fmt=v=>'PKR '+Math.max(0,v).toLocaleString('en-PK',{maximumFractionDigits:0});
  $('quickReceivedView').textContent=fmt(n('quickAdvance'));
- $('quickDueView').textContent=fmt(Math.max(0,n('quickBudget')-n('quickAdvance)));
+ $('quickDueView').textContent=fmt(Math.max(0,n('quickBudget')-n('quickAdvance')));
  $('quickVendorDueView').textContent=fmt(n('quickVendorTotal'));
  $('quickStatusHint').textContent=n('quickAdvance')>0?'✓ Advance received — booking Confirmed hogi.':'Advance abhi receive nahi hui — booking Pending rahegi.';
 }
