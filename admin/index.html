@@ -317,6 +317,7 @@ function eventAuraWhatsApp(row){
  const phone=raw.startsWith('0')?'92'+raw.slice(1):raw.startsWith('92')?raw:raw.startsWith('3')?'92'+raw:raw;
  if(!phone||phone.length<10){alert('Is customer ka valid mobile number mojood nahi. Pehle booking edit karke number add karein.');return;}
  const status=String(row.Status||'Pending').trim().toLowerCase();
+ const isPending=!['confirmed','advance received','in progress','completed','cancelled'].includes(status);
  const due=Math.max(0,Number(row.Budget||0)-Number(row.Advance||0));
  const eventDate=String(row['Event Date']||'').match(/^\d{4}-\d{2}-\d{2}$/)?new Date(row['Event Date']+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):(row['Event Date']||'—');
  const venueParts=[row.Venue,row.City].filter(Boolean).map(x=>String(x).trim()).filter((x,n,a)=>a.findIndex(y=>y.toLowerCase()===x.toLowerCase())===n);
@@ -328,7 +329,7 @@ function eventAuraWhatsApp(row){
   opening='Your event with EventAura has been successfully completed. Thank you so much for trusting us and allowing us to be a part of your special occasion. We truly hope you enjoyed our services! We would love to hear your feedback. Your suggestions help us improve and serve you better. Planning another celebration? We would be delighted to work with you again!';
  }else if(status==='cancelled'){
   opening='Your EventAura booking has been marked as cancelled. If you have any questions or need assistance, please feel free to contact us.';
- }else{
+ }else if(isPending){
   opening='We have received your EventAura booking request. Your advance payment is still pending. Please pay the advance amount to confirm your booking. Your booking will remain unconfirmed until the advance payment is received.';
  }
  const customerName=String(row.Customer||'').trim().replace(/\s+/g,' ').split(' ').map((part,index)=>{
