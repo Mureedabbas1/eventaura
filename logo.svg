@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="EventAura logo">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffaf7"/><stop offset="1" stop-color="#f5e8e8"/></linearGradient></defs>
+<rect x="5" y="5" width="150" height="150" rx="42" fill="url(#g)"/>
+<rect x="12" y="12" width="136" height="136" rx="36" fill="none" stroke="#c6a46a" stroke-width="2.2"/>
+<path d="M42 112V72c0-22 17-39 38-39s38 17 38 39v40" fill="none" stroke="#b78d98" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M49 112h62" stroke="#c6a46a" stroke-width="2.5" stroke-linecap="round"/>
+<text x="80" y="101" text-anchor="middle" font-family="Georgia,serif" font-size="49" letter-spacing="-5" fill="#76515f">EA</text>
+<path d="M80 20l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#c6a46a"/>
+<circle cx="80" cy="128" r="3" fill="#c6a46a"/>
+</svg>
