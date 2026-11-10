@@ -304,6 +304,26 @@ th,td,.booking-row td{border-bottom-color:#4a3d47!important}
 #appView .booking-status.progress{color:#e1e0ff!important;-webkit-text-fill-color:#e1e0ff!important}
 #appView .error,#appView .danger{color:#ffb7c4!important;-webkit-text-fill-color:#ffb7c4!important}
 #appView .payment-summary>div:last-child b{color:#ffd6e5!important;-webkit-text-fill-color:#ffd6e5!important}
+
+/* Profit amount must retain its dark ink on the pale profit tile */
+#appView #records .booking-row td:nth-child(7),
+#appView #records .booking-row td:nth-child(7) *,
+#appView #records .booking-row td:nth-child(7) .profit-amount{
+  color:#7d2344!important;
+  -webkit-text-fill-color:#7d2344!important;
+}
+#appView #records .booking-row td:nth-child(7) .payment-cell small{
+  color:#754b5a!important;
+  -webkit-text-fill-color:#754b5a!important;
+}
+#appView #records .booking-row td:nth-child(7) .profit-amount{
+  background:#fff0f3!important;
+  border:1px solid #e9b9c8!important;
+  font-size:17px!important;
+  font-weight:900!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
 </style></head><body>
 <section class="login" id="loginView"><div class="loginbox"><div class="logo"><img src="/ev.jpg?v=4" alt="EventAura"></div><div class="eyebrow" style="margin-top:18px">EVENTAURA · PRIVATE WORKSPACE</div><h1>Admin Login</h1><p class="muted">Sign in with your authorised EventAura administrator account.</p><form id="loginForm"><div class="field"><label for="email">Administrator email</label><input id="email" type="email" autocomplete="username" required></div><div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required></div><button class="btn" id="loginBtn" type="submit" style="width:100%">Secure Login</button><div class="error" id="loginError"></div></form><button class="btn" type="button" id="forgotPassword" style="display:block;width:100%;margin-top:12px;background:#fff;color:#88727d;border:1px solid #cfc3c9;font-weight:800;padding:13px">Forgot Password? Click Here</button><div class="notice">Access is restricted by Supabase Auth and database Row Level Security. Only accounts granted the EventAura admin role can open this workspace.</div></div></section>
 <div class="layout hidden" id="appView"><aside class="side" id="side"><div class="brand"><div class="logo"><img src="/ev.jpg?v=4" alt="EventAura"></div><div><b>EventAura</b><small>ADMIN CONTROL CENTRE</small></div></div><div class="group">WORKSPACE</div><nav class="nav" id="nav"></nav></aside><main class="main"><header class="top"><div><button class="btn2 menu" id="menu">☰</button><div class="eyebrow">EVENTAURA · MANAGEMENT</div><h1 id="pageTitle">Dashboard</h1></div><div class="topright"><button class="btn" type="button" id="addNewBooking">＋ Add New Booking</button><span class="pill">Lahore · Gujranwala</span><button class="btn2" id="logoutBtn">Log out</button></div></header>
