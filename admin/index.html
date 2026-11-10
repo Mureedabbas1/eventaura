@@ -200,6 +200,50 @@ td{color:#30272c!important}
 /* Use the original uploaded EventAura brand logo */
 .logo{overflow:hidden!important;background:#fff!important;border:0!important;padding:2px!important}
 .logo img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;border-radius:inherit!important}
+
+/* Final theme: soft dark plum, muted rose and warm ivory */
+:root{color-scheme:dark!important;--rose:#c08b9e;--pink:#a9788b;--pale:#3a2f38;--gold:#c7ad7d;--ink:#eee7eb;--muted:#b6a8b1;--line:#51434d;--bg:#211d22}
+html,body,.layout,.main,#dashboard,#records,#bookingDetail{background:#211d22!important;color:#eee7eb!important}
+body *{color:inherit}
+.login{background:radial-gradient(ellipse at 15% 0%,#44313e 0%,#211d22 58%,#29242a 100%)!important;color:#eee7eb!important}
+.loginbox,.side,.panel,.stat,.detail-item,.status-workflow,.easy-booking-section,.easy-more,.payment-summary>div{background:#2d272e!important;color:#eee7eb!important;border-color:#51434d!important}
+.side{box-shadow:5px 0 25px rgba(0,0,0,.18)!important}
+.brand b,.login h1,.top h1,.heading h3,.panel h3,.stat strong,.customer-page-head h2,.customer-section-title,.easy-booking-section h4{color:#f2eaf0!important}
+p,span,div,label,small,strong,b,h1,h2,h3,h4,td,th,summary,a{color:inherit}
+.muted,.foot,.group,.stat label,.chart-bar small,.detail-item small,.booking-customer small,.payment-cell small,.cell-sub{color:#b6a8b1!important}
+.eyebrow{color:#d4aabb!important}
+.nav button{background:transparent!important;color:#d0c1ca!important}
+.nav button:hover,.nav button.active{background:#40333d!important;color:#f2dce6!important}
+.field label{color:#d5bdc8!important}
+input,select,textarea,.field input,.field textarea,.field select{background:#211d22!important;color:#f1eaf0!important;border-color:#5b4a55!important}
+input::placeholder,textarea::placeholder{color:#a18f9a!important;opacity:1!important}
+.btn{background:#956779!important;border-color:#b18496!important;color:#fff!important}
+.btn2,.pill,.status-step{background:#393039!important;color:#e8dbe2!important;border-color:#5b4a55!important}
+.welcome{background:linear-gradient(110deg,#40313c,#342c34 66%,#3b342d)!important;border-color:#51434d!important}
+.welcome h2{color:#f4eaf0!important}
+th{color:#c0b0ba!important;background:#342d34!important}
+td{color:#eee7eb!important}
+th,td,.booking-row td{border-bottom-color:#4a3d47!important}
+.recent-link{color:#e0b5c5!important}
+.detail-item,.status-workflow{background:#342d35!important;border-color:#51434d!important}
+.status-step.selected{background:#956779!important;color:#fff!important;border-color:#b18496!important}
+.payment-summary>div:last-child b{color:#e0b5c5!important}
+.notice{background:#3b332e!important;color:#e0cfb2!important;border-color:#5b4d40!important}
+.notice.status{background:#29382f!important;color:#c5dfcc!important;border-color:#435b49!important}
+.error,.danger{color:#f0a6b5!important}
+.empty{color:#b6a8b1!important}
+.booking-status{background:#40333d!important;border-color:#66505f!important;color:#e9cbd8!important}
+.booking-status.confirmed,.booking-status.completed{background:#293d34!important;border-color:#476b58!important;color:#c5e4d0!important}
+.booking-status.progress{background:#343449!important;border-color:#555579!important;color:#d8cef4!important}
+.booking-status.cancelled{background:#482e35!important;border-color:#79505c!important;color:#f0c1cb!important}
+.booking-status.pending{background:#443a2d!important;border-color:#716044!important;color:#e8d4a8!important}
+#records .tablewrap{border-color:#51434d!important}
+.payment-entry{background:#382f3b!important;border-color:#59465b!important}
+.chart-bar i{background:linear-gradient(180deg,#c08b9e,#956779)!important}
+.analytics-track{background:#453943!important}.analytics-track i{background:#b18496!important}
+.logo{background:#2d272e!important}
+@media(max-width:680px){.side{background:#2d272e!important;box-shadow:0 10px 30px #0008!important}}
+
 </style></head><body>
 <section class="login" id="loginView"><div class="loginbox"><div class="logo"><img src="/ev.jpg?v=4" alt="EventAura"></div><div class="eyebrow" style="margin-top:18px">EVENTAURA · PRIVATE WORKSPACE</div><h1>Admin Login</h1><p class="muted">Sign in with your authorised EventAura administrator account.</p><form id="loginForm"><div class="field"><label for="email">Administrator email</label><input id="email" type="email" autocomplete="username" required></div><div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required></div><button class="btn" id="loginBtn" type="submit" style="width:100%">Secure Login</button><div class="error" id="loginError"></div></form><button class="btn" type="button" id="forgotPassword" style="display:block;width:100%;margin-top:12px;background:#fff;color:#88727d;border:1px solid #cfc3c9;font-weight:800;padding:13px">Forgot Password? Click Here</button><div class="notice">Access is restricted by Supabase Auth and database Row Level Security. Only accounts granted the EventAura admin role can open this workspace.</div></div></section>
 <div class="layout hidden" id="appView"><aside class="side" id="side"><div class="brand"><div class="logo"><img src="/ev.jpg?v=4" alt="EventAura"></div><div><b>EventAura</b><small>ADMIN CONTROL CENTRE</small></div></div><div class="group">WORKSPACE</div><nav class="nav" id="nav"></nav></aside><main class="main"><header class="top"><div><button class="btn2 menu" id="menu">☰</button><div class="eyebrow">EVENTAURA · MANAGEMENT</div><h1 id="pageTitle">Dashboard</h1></div><div class="topright"><button class="btn" type="button" id="addNewBooking">＋ Add New Booking</button><span class="pill">Lahore · Gujranwala</span><button class="btn2" id="logoutBtn">Log out</button></div></header>
