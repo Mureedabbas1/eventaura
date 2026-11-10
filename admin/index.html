@@ -359,9 +359,9 @@ $('quickBookingForm').addEventListener('submit',async e=>{
  e.preventDefault();const form=e.currentTarget;const data=Object.fromEntries(new FormData(form).entries());
  const total=Number(data.Budget||0),advance=Number(data.Advance||0),vendorTotal=Number(data['Vendor Total']||0);
  if(advance>total&&total>0){$('quickBookingMessage').textContent='Advance total bill se zyada nahi ho sakti.';return;}
- data.Status=advance>0?'Confirmed':'Pending';data['Booking ID']='EA-'+Date.now().toString().slice(-8);data['Remaining Amount']=Math.max(0,total-advance).toString();data['Vendor Remaining']=vendorTotal.toString();
+ data.Status=advance>0?'Confirmed':'Pending';data['Remaining Amount']=Math.max(0,total-advance).toString();data['Vendor Remaining']=vendorTotal.toString();
  $('quickBookingSave').disabled=true;$('quickBookingMessage').textContent='Saving booking…';
- try{const {data:bookingRow,error}=await sb.from('bookings').insert({record:data,created_by:user.id}).select('id').single();if(error)throw error;
+ try{const {data:bookingNumber,error:numberError}=await sb.rpc('next_eventaura_booking_number');if(numberError)throw numberError;data['Booking ID']=bookingNumber;const {data:bookingRow,error}=await sb.from('bookings').insert({record:data,created_by:user.id}).select('id').single();if(error)throw error;
  if(advance>0){const payment={ 'Payment ID':'PAY-'+Date.now().toString().slice(-8),'Booking ID':data['Booking ID'],'Customer':data.Customer,'Amount':String(advance),'Method':'Not specified','Date':new Date().toISOString().slice(0,10),'Status':'Received','Notes':'Advance received while creating booking'};const {error:payError}=await sb.from('payments').insert({record:payment,created_by:user.id});if(payError)throw payError;}
  await logActivity('Created booking',data['Booking ID']);form.reset();updateQuickPaymentPreview();$('quickBookingMessage').textContent='Booking saved successfully ✓';await loadDashboard();
  }catch(err){$('quickBookingMessage').textContent='Error: '+err.message;}finally{$('quickBookingSave').disabled=false;}
