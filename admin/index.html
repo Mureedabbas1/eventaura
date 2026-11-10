@@ -331,7 +331,12 @@ function eventAuraWhatsApp(row){
  }else{
   opening='We have received your EventAura booking request. Your advance payment is still pending. Please pay the advance amount to confirm your booking. Your booking will remain unconfirmed until the advance payment is received.';
  }
- const lines=['Hello '+(row.Customer||'')+'!','',opening];
+ const customerName=String(row.Customer||'').trim().replace(/\s+/g,' ').split(' ').map((part,index)=>{
+  const lower=part.toLowerCase();
+  if(lower==='mr'||lower==='mrs'||lower==='ms'||lower==='dr')return lower.charAt(0).toUpperCase()+lower.slice(1)+'.';
+  return lower.charAt(0).toUpperCase()+lower.slice(1);
+ }).join(' ');
+ const lines=['Hello '+customerName+',','',opening];
  if(status!=='completed'){
   lines.push('','Booking Details:','Booking ID: '+(row['Booking ID']||'—'),'Event Date: '+eventDate,'Venue: '+venue,'Total Bill: '+money(row.Budget),'Advance Received: '+money(row.Advance),'Remaining Balance: '+money(due));
  }
