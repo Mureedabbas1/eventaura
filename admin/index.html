@@ -201,30 +201,25 @@ td{color:#30272c!important}
 <div class="layout hidden" id="appView"><aside class="side" id="side"><div class="brand"><div class="logo"><img src="/logo.svg" alt="EventAura"></div><div><b>EventAura</b><small>ADMIN CONTROL CENTRE</small></div></div><div class="group">WORKSPACE</div><nav class="nav" id="nav"></nav></aside><main class="main"><header class="top"><div><button class="btn2 menu" id="menu">☰</button><div class="eyebrow">EVENTAURA · MANAGEMENT</div><h1 id="pageTitle">Dashboard</h1></div><div class="topright"><button class="btn" type="button" id="addNewBooking">＋ Add New Booking</button><span class="pill">Lahore · Gujranwala</span><button class="btn2" id="logoutBtn">Log out</button></div></header>
 <section class="view active" id="dashboard"><div class="panel welcome"><div class="eyebrow">YOUR EVENT BUSINESS, BEAUTIFULLY ORGANISED</div><h2>Welcome to EventAura ✨</h2><div class="muted">Your private workspace, powered entirely by Supabase.</div></div><div class="stats" id="stats"></div><div class="dashboard-grid"><div class="panel"><div class="heading"><h3>Profit Earned</h3><span class="muted">Completed events: customer total − vendor cost · PKR</span></div><div id="revenueChart" class="chart-bars"></div></div><div class="panel"><div class="heading"><h3>Booking Analytics</h3><span class="muted">Current booking status</span></div><div id="bookingAnalytics" class="analytics-list"></div></div></div><div class="dashboard-grid"><div class="panel"><div class="heading"><h3>Upcoming Events</h3></div><div id="upcomingEvents" class="compact-list"></div></div><div class="panel"><div class="heading"><h3>Latest Customers</h3></div><div id="latestCustomers" class="compact-list"></div></div></div><div class="panel"><div class="heading"><h3>Recent Bookings</h3><button class="btn2" data-open="bookings">Manage bookings</button></div><div class="tablewrap"><table><thead><tr><th>Customer</th><th>Event</th><th>Date</th><th>Status</th></tr></thead><tbody id="recent"></tbody></table></div></div><div class="notice status" id="connectionStatus">Connected to Supabase.</div></section>
 <section class="view" id="bookingCreate"><div class="panel" id="quickBookingPanel"><div class="heading"><div><h3>＋ Quick Add Booking</h3><div class="muted">یہیں سے نئی بکنگ شامل کریں، باقی ریکارڈ خود اپڈیٹ ہوگا۔</div></div><button class="btn2" type="button" id="clearQuickBooking">Clear</button></div><form id="quickBookingForm">
-<div class="easy-booking-section"><h4>1. Customer Details</h4><div class="formgrid">
+<div class="easy-booking-section"><h4>Customer Details</h4><div class="formgrid">
 <div class="field"><label>Customer Name *</label><input name="Customer" required placeholder="Customer ka naam"></div>
 <div class="field"><label>Mobile Number *</label><input name="Phone" type="tel" required placeholder="03xx xxxxxxx"></div>
+<div class="field"><label>Instagram ID / Link</label><input name="Instagram" placeholder="@instagram_id ya profile link"></div>
 </div></div>
-<div class="easy-booking-section"><h4>2. Event Details</h4><div class="formgrid">
-<div class="field"><label>Event Type *</label><select name="Event Type" required><option value="">Event select karein</option><option>Birthday</option><option>Wedding</option><option>Engagement</option><option>Mehndi</option><option>Baby Shower</option><option>Bridal Shower</option><option>Corporate Event</option><option>Anniversary</option><option>Other</option></select></div>
+<div class="easy-booking-section"><h4>Event Details</h4><div class="formgrid">
 <div class="field"><label>Event Date *</label><input name="Event Date" type="date" required></div>
-<div class="field"><label>Theme *</label><select name="Theme" id="quickTheme" required><option value="">Themes load ho rahi hain…</option></select></div>
 <div class="field"><label>City *</label><select name="City" required><option value="">City select karein</option><option>Lahore</option><option>Gujranwala</option><option>Other</option></select></div>
+<div class="field" style="grid-column:1/-1"><label>Event Address *</label><input name="Venue" required placeholder="Mukammal event address"></div>
 </div></div>
-<div class="easy-booking-section payment-entry"><h4>3. Customer Payment</h4><p class="muted">Customer se total kitne paise lene hain aur ab tak kitne mile?</p><div class="formgrid">
-<div class="field"><label>Customer Total Bill (PKR)</label><input name="Budget" id="quickBudget" type="number" min="0" required placeholder="Misal: 50000"></div>
-<div class="field"><label>Received / Advance (PKR)</label><input name="Advance" id="quickAdvance" type="number" min="0" placeholder="Misal: 20000"></div>
-</div><div class="payment-summary"><div><small>Advance received (profit nahi)</small><b id="quickReceivedView">PKR 0</b></div><div><small>Customer se baqi lena hai</small><b id="quickDueView">PKR 0</b></div></div></div>
-<div class="easy-booking-section payment-entry"><h4>4. Vendor Payment & Your Profit</h4><p class="muted">Vendor ka total kharcha aur usay di hui raqam likhein. Aap ka profit customer ke total bill mein se vendor ka total kharcha minus kar ke niklega.</p><div class="formgrid"><div class="field"><label>Vendor Total Cost (PKR)</label><input name="Vendor Total" id="quickVendorTotal" type="number" min="0" placeholder="Vendor ka total kharcha"></div><div class="field"><label>Vendor ko Paid (PKR)</label><input name="Vendor Paid" id="quickVendorPaid" type="number" min="0" placeholder="Ab tak vendor ko diya"></div></div><div class="payment-summary"><div><small>Vendor ko baqi dena hai</small><b id="quickVendorDueView">PKR 0</b></div><div><small>Aap ka estimated profit</small><b id="quickProfitView">Vendor cost enter karein</b></div></div></div>
-<details class="easy-more"><summary>Mazeed details (optional)</summary><div class="formgrid">
-<div class="field"><label>Event Time</label><input name="Event Time" type="time"></div>
-<div class="field"><label>Venue / Address</label><input name="Venue" placeholder="Venue ya address"></div>
-<div class="field"><label>Guests</label><input name="Guests" type="number" min="0" placeholder="Guests ki tadaad"></div>
-<div class="field"><label>Booking Status</label><select name="Status"><option>Pending</option><option>Confirmed</option><option>Advance Received</option><option>In Progress</option><option>Completed</option><option>Cancelled</option></select></div>
-<div class="field"><label>Assigned Partner</label><select name="Partner"><option value="">Not assigned</option></select></div>
-<div class="field"><label>Email</label><input name="Email" type="email" placeholder="Optional"></div>
-<div class="field" style="grid-column:1/-1"><label>Notes</label><textarea name="Notes" rows="2" placeholder="Koi zaroori baat…"></textarea></div>
-</div><div class="payment-summary"><div><small>Vendor ko abhi dena baqi</small><b id="quickVendorDueView">PKR 0</b></div></div></details>
+<div class="easy-booking-section payment-entry"><h4>Payment Details</h4><div class="formgrid">
+<div class="field"><label>Total Customer Payment (PKR) *</label><input name="Budget" id="quickBudget" type="number" min="0" required placeholder="Total bill"></div>
+<div class="field"><label>Advance Payment (PKR)</label><input name="Advance" id="quickAdvance" type="number" min="0" placeholder="Advance received"></div>
+<div class="field"><label>Vendor ko Total Kitne Dene Hain? (PKR)</label><input name="Vendor Total" id="quickVendorTotal" type="number" min="0" placeholder="Vendor ka total kharcha"></div>
+</div><div class="payment-summary">
+<div><small>Advance received</small><b id="quickReceivedView">PKR 0</b></div>
+<div><small>Customer se baqi lena hai</small><b id="quickDueView">PKR 0</b></div>
+<div><small>Vendor ko total dena hai</small><b id="quickVendorDueView">PKR 0</b></div>
+</div><p class="muted" id="quickStatusHint">Advance milne par booking Confirmed hogi, warna Pending.</p></div>
 <div class="actions easy-save-row"><button class="btn" id="quickBookingSave" type="submit">＋ Save Booking</button><span class="muted" id="quickBookingMessage"></span></div>
 </form></div></section>
 <section class="view" id="bookingDetail"><div class="panel"><div class="heading"><div><div class="eyebrow">BOOKING DETAILS</div><h3 id="detailCustomer">Customer booking</h3><div class="muted" id="detailBookingId"></div></div><button class="btn2" id="backToDashboard">← Back to Dashboard</button></div><div id="bookingDetailContent"></div></div></section>
@@ -310,17 +305,17 @@ async function loadQuickBookingOptions(){
 function updateQuickPaymentPreview(){
  const n=id=>Number($(id)?.value||0),fmt=v=>'PKR '+Math.max(0,v).toLocaleString('en-PK',{maximumFractionDigits:0});
  $('quickReceivedView').textContent=fmt(n('quickAdvance'));
- $('quickDueView').textContent=fmt(Math.max(0,n('quickBudget')-n('quickAdvance')));
- $('quickVendorDueView').textContent=fmt(Math.max(0,n('quickVendorTotal')-n('quickVendorPaid')));$('quickProfitView').textContent=$('quickVendorTotal').value.trim()?'PKR '+(n('quickBudget')-n('quickVendorTotal')).toLocaleString('en-PK',{maximumFractionDigits:0}):'Vendor cost enter karein';
+ $('quickDueView').textContent=fmt(Math.max(0,n('quickBudget')-n('quickAdvance)));
+ $('quickVendorDueView').textContent=fmt(n('quickVendorTotal'));
+ $('quickStatusHint').textContent=n('quickAdvance')>0?'✓ Advance received — booking Confirmed hogi.':'Advance abhi receive nahi hui — booking Pending rahegi.';
 }
-['quickBudget','quickAdvance','quickVendorTotal','quickVendorPaid'].forEach(id=>$(id)?.addEventListener('input',updateQuickPaymentPreview));
+['quickBudget','quickAdvance','quickVendorTotal'].forEach(id=>$(id)?.addEventListener('input',updateQuickPaymentPreview));
 $('clearQuickBooking').onclick=()=>{$('quickBookingForm').reset();$('quickBookingMessage').textContent='';updateQuickPaymentPreview();};
 $('quickBookingForm').addEventListener('submit',async e=>{
  e.preventDefault();const form=e.currentTarget;const data=Object.fromEntries(new FormData(form).entries());
- const total=Number(data.Budget||0),advance=Number(data.Advance||0),vendorTotal=Number(data['Vendor Total']||0),vendorPaid=Number(data['Vendor Paid']||0);
- if(vendorPaid>vendorTotal&&vendorTotal>0){$('quickBookingMessage').textContent='Vendor ko di hui raqam vendor ke total kharchay se zyada nahi ho sakti.';return;}
- if(advance>total&&total>0){$('quickBookingMessage').textContent='Advance total budget سے زیادہ نہیں ہو سکتی۔';return;}
- data['Booking ID']='EA-'+Date.now().toString().slice(-8);data['Remaining Amount']=Math.max(0,total-advance).toString();data['Vendor Remaining']=Math.max(0,vendorTotal-vendorPaid).toString();
+ const total=Number(data.Budget||0),advance=Number(data.Advance||0),vendorTotal=Number(data['Vendor Total']||0);
+ if(advance>total&&total>0){$('quickBookingMessage').textContent='Advance total bill se zyada nahi ho sakti.';return;}
+ data.Status=advance>0?'Confirmed':'Pending';data['Booking ID']='EA-'+Date.now().toString().slice(-8);data['Remaining Amount']=Math.max(0,total-advance).toString();data['Vendor Remaining']=vendorTotal.toString();
  $('quickBookingSave').disabled=true;$('quickBookingMessage').textContent='Saving booking…';
  try{const {data:bookingRow,error}=await sb.from('bookings').insert({record:data,created_by:user.id}).select('id').single();if(error)throw error;
  if(advance>0){const payment={ 'Payment ID':'PAY-'+Date.now().toString().slice(-8),'Booking ID':data['Booking ID'],'Customer':data.Customer,'Amount':String(advance),'Method':'Not specified','Date':new Date().toISOString().slice(0,10),'Status':'Received','Notes':'Advance received while creating booking'};const {error:payError}=await sb.from('payments').insert({record:payment,created_by:user.id});if(payError)throw payError;}
