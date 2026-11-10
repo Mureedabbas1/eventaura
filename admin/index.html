@@ -232,7 +232,7 @@ td{color:#30272c!important}
 <script>
 const SUPABASE_URL='https://isvszwlmpjetfchawhpn.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_wU_3Yy0RemZ4cqHuYew7ig_yDG9XzjO';
-const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{storageKey:'eventaura-admin-auth',persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 const MODULES={
  bookings:{label:'Bookings',fields:['Customer','Phone','Instagram','Event Date','Venue','City','Budget','Advance','Vendor Total'],types:{Budget:'number',Advance:'number','Vendor Total':'number'}},
  customers:{label:'Customers',fields:['Customer ID','Name','Phone','Email','Address','Notes'],types:{Email:'email'}},
