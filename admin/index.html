@@ -313,11 +313,14 @@ async function fetchRows(module,limit=500){const {data,error}=await sb.from(modu
 function displayRecord(row){return {...(row.record||{}),__id:row.id,__created:row.created_at};}
 async function openModule(name){$('bookingDetail').classList.remove('active');currentModule=name;document.querySelectorAll('[data-module]').forEach(b=>b.classList.toggle('active',b.dataset.module===name));$('dashboard').classList.remove('active');$('records').classList.add('active');$('pageTitle').textContent=MODULES[name].label;$('recordTitle').textContent=MODULES[name].label;$('editor').classList.add('hidden');$('tableBody').innerHTML='<tr><td class="empty">Loading…</td></tr>';try{records=(await fetchRows(name)).map(displayRecord);renderTable()}catch(err){$('tableBody').innerHTML='<tr><td class="empty">'+esc(err.message)+'</td></tr>'}}
 function eventAuraWhatsApp(row){
- const raw=String(row.Phone||'').replace(/\\D/g,'');
+ const raw=String(row.Phone||'').replace(/\D/g,'');
  const phone=raw.startsWith('0')?'92'+raw.slice(1):raw.startsWith('92')?raw:raw.startsWith('3')?'92'+raw:raw;
  if(!phone||phone.length<10){alert('Is customer ka valid mobile number mojood nahi. Pehle booking edit karke number add karein.');return;}
  const status=String(row.Status||'Pending').trim().toLowerCase();
  const due=Math.max(0,Number(row.Budget||0)-Number(row.Advance||0));
+ const eventDate=String(row['Event Date']||'').match(/^\d{4}-\d{2}-\d{2}$/)?new Date(row['Event Date']+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):(row['Event Date']||'—');
+ const venueParts=[row.Venue,row.City].filter(Boolean).map(x=>String(x).trim()).filter((x,n,a)=>a.findIndex(y=>y.toLowerCase()===x.toLowerCase())===n);
+ const venue=venueParts.join(', ')||'—';
  let opening;
  if(status==='confirmed'||status==='advance received'||status==='in progress'){
   opening='Your EventAura booking has been successfully confirmed. Our team will stay in touch with you regarding the preparations for your special event. Thank you for trusting EventAura!';
@@ -330,7 +333,7 @@ function eventAuraWhatsApp(row){
  }
  const lines=['Hello '+(row.Customer||'')+'!','',opening];
  if(status!=='completed'){
-  lines.push('','Booking Details:','Booking ID: '+(row['Booking ID']||'—'),'Event Date: '+(row['Event Date']||'—'),'Venue: '+([row.Venue,row.City].filter(Boolean).join(', ')||'—'),'Total Bill: '+money(row.Budget),'Advance Received: '+money(row.Advance),'Remaining Balance: '+money(due));
+  lines.push('','Booking Details:','Booking ID: '+(row['Booking ID']||'—'),'Event Date: '+eventDate,'Venue: '+venue,'Total Bill: '+money(row.Budget),'Advance Received: '+money(row.Advance),'Remaining Balance: '+money(due));
  }
  lines.push('','Instagram: https://www.instagram.com/eventaura1','Website: https://eventaura.space','','For any questions, feedback, or future bookings, feel free to contact us.','Best Regards, Team EventAura');
  window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(lines.join('\\n')),'_blank','noopener');
