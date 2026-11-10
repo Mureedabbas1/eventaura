@@ -121,6 +121,49 @@ th,td{border-bottom-color:#f1e9e7!important}th{color:#a18e93!important}
 .easy-booking-section{background:#fff!important;border-color:#eee5e4!important}
 .payment-summary b{color:#89596b!important}
 @media(max-width:680px){.side{background:#fff!important}}
+
+/* Final readability pass — ivory canvas, dark ink, rose accents */
+:root{color-scheme:light!important;--ink:#30272c;--muted:#74676d;--line:#e8dddf;--bg:#f8f4f2;--rose:#8b5368;--pink:#c58e9f;--pale:#f5e9ed;--gold:#ad8955}
+html,body{background:#f8f4f2!important;color:#30272c!important}
+body *{color:inherit}
+.login,.layout,.main{color:#30272c!important}
+.login{background:linear-gradient(135deg,#f3e7e9 0%,#fbf8f5 55%,#eee6dc 100%)!important}
+.loginbox,.side,.panel,.stat,.easy-booking-section,.easy-more,.payment-summary>div{background:#fff!important;color:#30272c!important;border-color:#e8dddf!important}
+.side{box-shadow:4px 0 22px rgba(65,42,50,.06)!important}
+.brand b,.login h1,.top h1,.heading h3,.panel h3,.stat strong,.customer-page-head h2,.customer-section-title,.easy-booking-section h4{color:#30272c!important}
+.top,.heading,.panel,.stat,.welcome{color:#30272c!important}
+.muted,.foot,.group,.stat label,.chart-bar small,.detail-item small,.booking-customer small,.payment-cell small,.cell-sub{color:#74676d!important}
+.eyebrow{color:#8b5368!important}
+.nav button{color:#594b51!important}
+.nav button:hover,.nav button.active{background:#f5e9ed!important;color:#85485f!important}
+.field label{color:#59464e!important;font-weight:600!important}
+.field input,.field textarea,.field select,input,select,textarea{background:#fff!important;color:#30272c!important;border-color:#dfd1d5!important}
+input::placeholder,textarea::placeholder{color:#95878c!important;opacity:1!important}
+.btn{background:#8b5368!important;border-color:#8b5368!important;color:#fff!important}
+.btn2,.pill{background:#fff!important;color:#754457!important;border-color:#e4d5d9!important}
+.welcome{background:linear-gradient(110deg,#f3e5e9,#fff 66%,#f2eadf)!important}
+.welcome h2{color:#49333c!important}
+th{color:#76666d!important;background:#fbf7f6!important}
+td{color:#30272c!important}
+th,td{border-bottom-color:#eee5e4!important}
+.booking-customer b,.payment-cell b,.booking-row td>b,.detail-item b{color:#30272c!important}
+.recent-link{color:#85485f!important}
+.detail-item,.status-workflow{background:#fbf7f6!important;border-color:#e8dddf!important}
+.status-step{background:#fff!important;color:#594b51!important;border-color:#dfd1d5!important}
+.status-step.selected{background:#8b5368!important;color:#fff!important;border-color:#8b5368!important}
+.payment-summary>div:last-child b{color:#8b5368!important}
+.notice{background:#f8f1ed!important;color:#66534b!important;border-color:#eaded7!important}
+.error{color:#a12f48!important}
+.empty{color:#74676d!important}
+.booking-status{color:#754457!important}
+.booking-status.confirmed,.booking-status.completed{color:#386b45!important}
+.booking-status.progress{color:#49658c!important}
+.booking-status.cancelled{color:#a13e50!important}
+.booking-status.pending{color:#8a682f!important}
+.danger{color:#a13e50!important}
+#records .tablewrap{border-color:#e8dddf!important}
+@media(max-width:680px){.side{background:#fff!important}}
+
 </style></head><body>
 <section class="login" id="loginView"><div class="loginbox"><div class="logo"><img src="/logo.svg" alt="EventAura"></div><div class="eyebrow" style="margin-top:18px">EVENTAURA · PRIVATE WORKSPACE</div><h1>Admin Login</h1><p class="muted">Sign in with your authorised EventAura administrator account.</p><form id="loginForm"><div class="field"><label for="email">Administrator email</label><input id="email" type="email" autocomplete="username" required></div><div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required></div><button class="btn" id="loginBtn" type="submit" style="width:100%">Secure Login</button><div class="error" id="loginError"></div></form><button class="btn" type="button" id="forgotPassword" style="display:block;width:100%;margin-top:12px;background:#fff;color:#88727d;border:1px solid #cfc3c9;font-weight:800;padding:13px">پاس ورڈ بھول گئے؟ یہاں دبائیں</button><div class="notice">Access is restricted by Supabase Auth and database Row Level Security. Only accounts granted the EventAura admin role can open this workspace.</div></div></section>
 <div class="layout hidden" id="appView"><aside class="side" id="side"><div class="brand"><div class="logo"><img src="/logo.svg" alt="EventAura"></div><div><b>EventAura</b><small>ADMIN CONTROL CENTRE</small></div></div><div class="group">WORKSPACE</div><nav class="nav" id="nav"></nav></aside><main class="main"><header class="top"><div><button class="btn2 menu" id="menu">☰</button><div class="eyebrow">EVENTAURA · MANAGEMENT</div><h1 id="pageTitle">Dashboard</h1></div><div class="topright"><span class="pill">Lahore · Gujranwala</span><button class="btn2" id="logoutBtn">Log out</button></div></header>
