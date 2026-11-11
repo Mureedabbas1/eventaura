@@ -464,7 +464,7 @@ const menu=document.getElementById('menu'),links=document.getElementById('navlin
       document.documentElement.style.overflow='';
       document.body.style.overflow='';
       window.setTimeout(function(){welcome.remove()},700);
-    },7000);
+    },5000);
   }
   if(document.readyState==='complete') requestAnimationFrame(showEventAuraWelcome);
   else window.addEventListener('load',function(){requestAnimationFrame(showEventAuraWelcome)},{once:true});
