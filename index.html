@@ -84,6 +84,15 @@
     @media(max-width:480px){.team-card{grid-template-columns:1fr;padding:16px;gap:15px}.team-photo{height:230px}.team-card h3{font-size:22px}}
 
 
+    /* Soft-focus wedding decor photo behind the original welcome logo and message */
+    #eventaura-welcome{isolation:isolate;overflow:hidden;background:#3a2630!important}
+    #eventaura-welcome::before{content:"";position:absolute;inset:-14px;z-index:0;background-image:linear-gradient(rgba(38,20,30,.40),rgba(38,20,30,.40)),url("https://raw.githubusercontent.com/Mureedabbas1/eventaura/main/WhatsApp%20Image%202026-11-01%20at%207.20.25%20PM.jpeg");background-size:cover;background-position:center 45%;filter:blur(7px);transform:scale(1.04)}
+    #eventaura-welcome>*{position:relative;z-index:1}
+    #eventaura-welcome img{filter:drop-shadow(0 12px 24px rgba(0,0,0,.28))}
+    #eventaura-welcome h1,#eventaura-welcome p,#eventaura-welcome .ea-locations{color:#fff!important;text-shadow:0 2px 12px rgba(25,12,20,.75)}
+    #eventaura-welcome:after{box-shadow:0 0 12px rgba(255,224,174,.75)}
+    @media(max-width:600px){#eventaura-welcome::before{background-position:center;background-size:cover;filter:blur(6px)}}
+    
     /* 7-second EventAura welcome screen */
     #eventaura-welcome{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px;text-align:center;background:radial-gradient(circle at 50% 38%,#fff 0,#fff7fa 48%,#f6e4eb 100%);opacity:1;visibility:visible;transition:opacity .65s ease,visibility .65s ease}
     #eventaura-welcome.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
