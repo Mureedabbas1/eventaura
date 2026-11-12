@@ -579,7 +579,7 @@ function renderTable(){
  const term=($('recordSearch')?.value||'').trim().toLowerCase();
  let visible=records.filter(r=>!term||fields.some(f=>String(r[f]??'').toLowerCase().includes(term))); if(currentModule==='bookings'){visible=visible.filter(r=>{const due=Math.max(0,Number(r.Budget||0)-Number(r.Advance||0));const vendorDue=Math.max(0,Number(r['Vendor Total']||0)-Number(r['Vendor Paid']||0));if(bookingFilter==='pending')return String(r.Status||'Pending').toLowerCase()==='pending';if(bookingFilter==='completed')return String(r.Status||'').toLowerCase()==='completed';if(bookingFilter==='customer_due')return due>0;if(bookingFilter==='vendor')return Number(r['Vendor Paid']||0)>0||Number(r['Vendor Total']||0)>0;return true;});}
  if(currentModule==='bookings'){
-  const activeProfitRows=records.filter(r=>!String(r.Status||'').toLowerCase().includes('cancel'));
+  const activeProfitRows=records.filter(r=>['pending','confirmed'].includes(String(r.Status||'Pending').trim().toLowerCase()));
   const hasVendorCost=r=>String(r['Vendor Total']??'').trim()!==''&&Number.isFinite(Number(r['Vendor Total']));
   const estimatedBookingProfit=activeProfitRows.filter(hasVendorCost).reduce((sum,r)=>sum+Number(r.Budget||0)-Number(r['Vendor Total']||0),0);
   const earnedBookingProfit=activeProfitRows.filter(r=>String(r.Status||'').toLowerCase()==='completed'&&hasVendorCost(r)).reduce((sum,r)=>sum+Number(r.Budget||0)-Number(r['Vendor Total']||0),0);
