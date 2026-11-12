@@ -532,8 +532,8 @@ function openCompleteBookingModal(row){
    dashboardBookings=dashboardBookings.map(x=>x.__id===row.__id?row:x);
    await logActivity('Completed booking '+(row['Booking ID']||row.__id),'Pending payment received: '+money(amount)+'; remaining: '+money(updated['Remaining Amount']));
    close();
-   await openBookingDetail(row.__id);
    await loadDashboard();
+   await openBookingDetail(row.__id);
   }catch(e){err.textContent=e.message||'Could not complete this booking.';btn.disabled=false;btn.textContent='Confirm Complete';}
  };
 }
