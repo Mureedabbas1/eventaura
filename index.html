@@ -70,7 +70,7 @@
     .trusted-team{background:linear-gradient(135deg,#fff7fa 0%,#fffaf6 55%,#fbedf2 100%);position:relative;overflow:hidden}
     .trusted-team:before,.trusted-team:after{content:'✦';position:absolute;color:rgba(189,152,96,.22);font-size:58px;pointer-events:none}
     .trusted-team:before{top:45px;left:6%}.trusted-team:after{right:7%;bottom:35px}
-    .team-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:900px;margin:0 auto}
+    .team-grid{display:grid;grid-template-columns:minmax(0,760px);justify-content:center;gap:24px;max-width:900px;margin:0 auto}.trusted-team{display:block!important;visibility:visible!important;scroll-margin-top:100px}.team-card{width:100%;min-width:0}.team-photo img{min-height:190px}
     .team-card{position:relative;display:grid;grid-template-columns:180px 1fr;align-items:center;gap:22px;padding:20px;border:1px solid rgba(189,152,96,.35);border-radius:22px;background:rgba(255,255,255,.72);backdrop-filter:blur(16px);box-shadow:0 18px 48px rgba(105,48,72,.10);transition:transform .3s,box-shadow .3s}
     .team-card:hover{transform:translateY(-7px);box-shadow:0 24px 55px rgba(105,48,72,.16)}
     .team-photo img{width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block}.qaiser-photo{padding:0;background:#173b68;border-color:rgba(189,152,96,.35)}
@@ -179,7 +179,7 @@ html[data-theme="dark"] .theme-toggle{background:#332633!important;color:#ffe0eb
   <div class="topline"></div>
   <header><div class="container nav">
     <a class="brand" href="#home"><img src="/ev.jpg?v=5" alt="EventAura logo"><span class="brand-name">Event<span>Aura</span></span></a>
-    <nav class="navlinks" id="navlinks"><a href="/">Home</a><a href="/gallery.html">Gallery</a><a class="nav-theme-btn" href="#choose-theme">Choose Your Theme</a><a href="#reviews">Reviews</a><a href="/contact.html">Contact</a></nav>
+    <nav class="navlinks" id="navlinks"><a href="/">Home</a><a href="#team">Our Team</a><a href="/gallery.html">Gallery</a><a class="nav-theme-btn" href="#choose-theme">Choose Your Theme</a><a href="#reviews">Reviews</a><a href="/contact.html">Contact</a></nav>
     <div class="nav-actions"><a class="nav-cta" href="#contact">Plan Your Event&nbsp; ↗</a><button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">☾ Dark mode</button></div><button class="menu" id="menu" aria-label="Open menu">☰</button>
   </div></header>
   <main>
