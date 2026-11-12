@@ -582,7 +582,7 @@ function renderTable(){
   const activeProfitRows=records.filter(r=>['pending','confirmed'].includes(String(r.Status||'Pending').trim().toLowerCase()));
   const hasVendorCost=r=>String(r['Vendor Total']??'').trim()!==''&&Number.isFinite(Number(r['Vendor Total']));
   const estimatedBookingProfit=activeProfitRows.filter(hasVendorCost).reduce((sum,r)=>sum+Number(r.Budget||0)-Number(r['Vendor Total']||0),0);
-  const earnedBookingProfit=activeProfitRows.filter(r=>String(r.Status||'').toLowerCase()==='completed'&&hasVendorCost(r)).reduce((sum,r)=>sum+Number(r.Budget||0)-Number(r['Vendor Total']||0),0);
+  const earnedBookingProfit=records.filter(r=>String(r.Status||'').trim().toLowerCase()==='completed'&&hasVendorCost(r)).reduce((sum,r)=>sum+Number(r.Budget||0)-Number(r['Vendor Total']||0),0);
   $('bookingProfitSummary').classList.remove('hidden');$('bookingEstimatedProfit').textContent=money(estimatedBookingProfit);$('bookingEarnedProfit').textContent=money(earnedBookingProfit);$('bookingMissingCost').textContent=String(activeProfitRows.filter(r=>!hasVendorCost(r)).length);
   $('bookingFilters').classList.remove('hidden'); $('tableHead').innerHTML='<tr><th>Booking / Customer</th><th>Event Details</th><th>Date & Location</th><th>Theme</th><th>Customer Payment</th><th>Vendor Payment</th><th>Your Profit</th><th>Status</th><th>Manage</th></tr>';
   if(!records.length){$('tableBody').innerHTML='<tr><td colspan="8" class="empty">No bookings yet. Add a booking from the dashboard to get started.</td></tr>';return;}
