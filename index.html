@@ -90,12 +90,12 @@
 
     /* Soft-focus wedding decor photo behind the original welcome logo and message */
     #eventaura-welcome{isolation:isolate;overflow:hidden;background:#3a2630!important}
-    #eventaura-welcome::before{content:"";position:absolute;inset:-14px;z-index:0;background-image:linear-gradient(rgba(38,20,30,.40),rgba(38,20,30,.40)),url("https://raw.githubusercontent.com/Mureedabbas1/eventaura/main/Backgroud%20for%20welcom%20screen.jpg");background-size:cover;background-position:center 45%;filter:blur(3px);transform:scale(1.04)}
+    #eventaura-welcome::before{content:"";position:absolute;inset:-14px;z-index:0;background-image:linear-gradient(rgba(38,20,30,.40),rgba(38,20,30,.40)),url("/Backgroud%20for%20welcom%20screen.jpg");background-size:cover;background-position:center 45%;filter:blur(3px);transform:scale(1.04)}
     #eventaura-welcome>*{position:relative;z-index:1}
     #eventaura-welcome img{filter:drop-shadow(0 12px 24px rgba(0,0,0,.28))}
     #eventaura-welcome h1,#eventaura-welcome p,#eventaura-welcome .ea-locations{color:#fff!important;text-shadow:0 2px 12px rgba(25,12,20,.75)}
     #eventaura-welcome:after{box-shadow:0 0 12px rgba(255,224,174,.75)}
-    @media(max-width:600px){#eventaura-welcome::before{background-position:center;background-size:cover;filter:blur(6px)}}
+    @media(max-width:600px){#eventaura-welcome::before{background-image:linear-gradient(rgba(38,20,30,.40),rgba(38,20,30,.40)),url("/welcome-bg-mobile.jpg");background-position:center;background-size:cover;filter:blur(6px)}#eventaura-welcome{padding:20px 16px}#eventaura-welcome h1{font-size:clamp(26px,8vw,34px)}}
     
     /* 7-second EventAura welcome screen */
     #eventaura-welcome{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px;text-align:center;background:radial-gradient(circle at 50% 38%,#fff 0,#fff7fa 48%,#f6e4eb 100%);opacity:1;visibility:visible;transition:opacity .65s ease,visibility .65s ease}
@@ -140,6 +140,13 @@ html[data-theme="dark"] .theme-toggle{background:#332633!important;color:#ffe0eb
 @media(max-width:1050px){.nav{gap:12px}.navlinks{gap:13px;font-size:11px}.brand-name{font-size:22px}.brand img{width:46px;height:46px}}
 @media(max-width:850px){.nav-actions{gap:6px}.nav-cta{display:inline-flex!important;padding:8px 11px;font-size:10px}.theme-toggle{padding:8px 9px!important;font-size:10px!important}}
 @media(max-width:520px){.nav{gap:7px}.nav-actions{gap:5px}.nav-cta{padding:7px 9px;font-size:9px}.theme-toggle{min-height:32px;padding:7px 8px!important;font-size:9px!important}.menu{font-size:22px;padding:0}}
+/* Mobile header fix: brand + theme button + menu must fit on one line without overlap */
+@media(max-width:640px){.nav-cta{display:none!important}.brand{min-width:0;flex:1 1 auto}.brand-name{white-space:nowrap}.nav-actions{margin-left:auto}.menu{flex:0 0 auto;min-width:40px;min-height:40px}}
+@media(max-width:380px){.brand img{width:38px;height:38px}.brand-name{font-size:19px}.theme-toggle{padding:6px 7px!important;font-size:8.5px!important}}
+/* Theme carousel controls must wrap instead of pushing the page wider than the screen; bigger touch area for dots */
+.theme-controls{max-width:100%;flex-wrap:wrap}.theme-dots{max-width:100%;flex-wrap:wrap;justify-content:center;row-gap:10px}.theme-dots button{position:relative}.theme-dots button::after{content:"";position:absolute;inset:-9px -4px}
+@media(max-width:420px){.footer-socials{flex-wrap:wrap}.footer-links{max-width:100%}}
+@media(max-width:640px){small,.team-kicker,.review-note,.form-hint,.dropdash-float-label,.dropdash-float-cta,.dropdash-affiliate-note{font-size:11px!important}}
 </style>
 <script type="application/ld+json">
 {
