@@ -190,8 +190,8 @@ html[data-theme="dark"] .theme-toggle{background:#332633!important;color:#ffe0eb
   <div class="topline"></div>
   <header><div class="container nav">
     <a class="brand" href="#home"><img src="/ev.jpg?v=5" alt="EventAura logo"><span class="brand-name">Event<span>Aura</span></span></a>
-    <nav class="navlinks" id="navlinks"><a href="/">Home</a><a href="#team">Our Team</a><a href="/gallery.html">Gallery</a><a class="nav-theme-btn" href="#choose-theme">Choose Your Theme</a><a href="#reviews">Reviews</a><a href="/contact.html">Contact</a></nav>
-    <div class="nav-actions"><a class="nav-cta" href="#contact">Plan Your Event&nbsp; ↗</a><button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">☾ Dark mode</button></div><button class="menu" id="menu" aria-label="Open menu">☰</button>
+    <nav class="navlinks" id="navlinks" aria-label="Main navigation"><a href="/">Home</a><a class="nav-theme-btn" href="/#choose-theme">Theme</a><a href="/gallery.html">Gallery</a><a href="/contact.html">Contacts</a></nav>
+    <div class="nav-actions"><button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">☾ Dark mode</button></div><button class="menu" id="menu" aria-label="Open menu">☰</button>
   </div></header>
   <main>
     <section class="hero" id="home"><div class="container hero-grid">
@@ -472,8 +472,8 @@ const menu=document.getElementById('menu'),links=document.getElementById('navlin
       }
       const formValues=Object.fromEntries(new FormData(form).entries());
       const payload={
-        name:formValues.customer_name,
-        event:formValues.event_type,
+        customer_name:formValues.customer_name,
+        event_type:formValues.event_type,
         rating:Number(String(formValues.rating).match(/[1-5]/)?.[0]||0),
         review:formValues.review,
         website:''
