@@ -58,8 +58,8 @@ function doPost(e) {
     const data = JSON.parse(raw);
     // Honeypot: bots that fill this hidden field are silently discarded.
     if (data.website) return jsonOutput_({ ok: true });
-    const name = String(data.customer_name || '').trim().slice(0, 80);
-    const eventType = String(data.event_type || '').trim().slice(0, 60);
+    const name = String(data.customer_name || data.name || '').trim().slice(0, 80);
+    const eventType = String(data.event_type || data.event || '').trim().slice(0, 60);
     const rating = Number(String(data.rating || '').match(/[1-5]/)?.[0] || 0);
     const review = String(data.review || '').trim().slice(0, 1200);
     if (!name || !eventType || rating < 1 || rating > 5 || review.length < 8) {
