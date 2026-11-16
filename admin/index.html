@@ -878,7 +878,7 @@ async function openCompletedMonthly(){
  $('completedMonthlyContent').innerHTML='<div class="empty">Loading completed bookings…</div>';
  try{
   const rows=(await fetchRows('bookings',1000)).map(displayRecord);
-  const done=rows.filter(r=>String(r.Status||'').trim().toLowerCase()==='completed'&&/^\\d{4}-\\d{2}-\\d{2}$/.test(String(r['Event Date']||'')));
+  const done=rows.filter(r=>String(r.Status||'').trim().toLowerCase()==='completed'&&/^\d{4}-\d{2}-\d{2}$/.test(String(r['Event Date']||'')));
   const groups={};
   done.forEach(r=>{const key=String(r['Event Date']).slice(0,7);(groups[key]=groups[key]||[]).push(r);});
   const keys=Object.keys(groups).sort((a,b)=>b.localeCompare(a));
