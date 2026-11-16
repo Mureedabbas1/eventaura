@@ -38,6 +38,13 @@ th{color:#b8a8b5}
 
 
 .profit-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 14px}.profit-summary .stat{padding:15px 16px;background:#342a33!important;border:1px solid #725464!important;border-radius:14px}.profit-summary .stat label{display:block;color:#e1c8d3!important;font-size:11px!important;font-weight:600;line-height:1.45}.profit-summary .stat strong{display:block;color:#fff!important;font:700 23px 'DM Sans',sans-serif!important;margin-top:9px;letter-spacing:.2px}.profit-summary .stat:last-child strong{color:#f2d7a2!important}@media(max-width:600px){.profit-summary{grid-template-columns:1fr!important}.profit-summary .stat{padding:13px 14px}}
+
+.completed-overview,.completed-month-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:14px 0}
+.completed-kpi{background:linear-gradient(145deg,#fff,#fbf7f9);border:1px solid var(--line);border-radius:12px;padding:13px;display:grid;gap:7px;min-width:0}
+.completed-kpi small{font-size:10px;color:var(--muted);letter-spacing:.35px}
+.completed-kpi strong{font-size:clamp(13px,1.5vw,18px);color:var(--ink);overflow-wrap:anywhere}
+.completed-kpi.profit{background:linear-gradient(145deg,#fffaf0,#f8f0df);border-color:#ead9b5}
+.completed-kpi.profit strong{color:#8b672b}
 .completed-month{border:1px solid var(--line);border-radius:14px;padding:15px;margin:14px 0;background:#fff}.completed-month-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:12px}.completed-month-head h4{font:18px 'Playfair Display';margin:0 0 4px}.completed-month-head small{color:var(--muted);font-size:11px}.completed-month-totals{display:flex;gap:16px;flex-wrap:wrap}.completed-month-totals span{display:grid;gap:4px;color:var(--muted);font-size:10px}.completed-month-totals b{font-size:12px;color:var(--ink)}.completed-month .tablewrap{border:1px solid var(--line);border-radius:10px}@media(max-width:650px){.completed-month-head{align-items:flex-start;flex-direction:column}.completed-month-totals{width:100%;justify-content:space-between}}
 /* Professional booking register */
 .booking-row td{padding:14px 10px;vertical-align:middle;border-bottom:1px solid #49404a}
@@ -878,20 +885,41 @@ async function openCompletedMonthly(){
  $('completedMonthlyContent').innerHTML='<div class="empty">Loading completed bookings…</div>';
  try{
   const rows=(await fetchRows('bookings',1000)).map(displayRecord);
-  const done=rows.filter(r=>String(r.Status||'').trim().toLowerCase()==='completed'&&/^\d{4}-\d{2}-\d{2}$/.test(String(r['Event Date']||'')));
+  const done=rows.filter(r=>String(r.Status||'').trim().toLowerCase()==='completed');
   const groups={};
-  done.forEach(r=>{const key=String(r['Event Date']).slice(0,7);(groups[key]=groups[key]||[]).push(r);});
+  done.forEach(r=>{
+   const raw=String(r['Event Date']||'').trim();
+   const date=/^\\d{4}-\\d{2}-\\d{2}$/.test(raw)?raw:String(r['Completed At']||r.__created||'').slice(0,10);
+   if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(date))return;
+   const key=date.slice(0,7);
+   (groups[key]=groups[key]||[]).push({...r,__monthlyDate:date});
+  });
   const keys=Object.keys(groups).sort((a,b)=>b.localeCompare(a));
-  if(!keys.length){$('completedMonthlyContent').innerHTML='<div class="empty">Abhi tak koi booking Completed mark nahi hui.</div>';return;}
-  $('completedMonthlyContent').innerHTML=keys.map(key=>{
-   const list=groups[key].sort((a,b)=>String(a['Event Date']).localeCompare(String(b['Event Date'])));
-   const total=list.reduce((n,r)=>n+Number(r.Budget||0),0);
-   const profit=list.reduce((n,r)=>n+Number(r.Budget||0)-Number(r['Vendor Total']||0),0);
+  if(!keys.length){
+   $('completedMonthlyContent').innerHTML='<div class="empty">Database se '+done.length+' Completed booking(s) mili, lekin unki valid Event Date/Completion Date nahi mili.</div>';
+   return;
+  }
+  const all=keys.flatMap(k=>groups[k]);
+  const sum=(list,fn)=>list.reduce((n,r)=>n+fn(r),0);
+  const billAll=sum(all,r=>Number(r.Budget||0));
+  const vendorAll=sum(all,r=>Number(r['Vendor Total']||0));
+  const profitAll=billAll-vendorAll;
+  const paidAll=sum(all,r=>Number(r.Advance||0));
+  const vendorPaidAll=sum(all,r=>Number(r['Vendor Paid']||0));
+  let html='<div class="completed-overview"><div class="completed-kpi"><small>Completed Orders</small><strong>'+all.length+'</strong></div><div class="completed-kpi"><small>Total Revenue</small><strong>'+money(billAll)+'</strong></div><div class="completed-kpi"><small>Vendor Cost</small><strong>'+money(vendorAll)+'</strong></div><div class="completed-kpi profit"><small>Total Profit</small><strong>'+money(profitAll)+'</strong></div></div>';
+  html+=keys.map(key=>{
+   const list=groups[key].sort((a,b)=>String(a.__monthlyDate).localeCompare(String(b.__monthlyDate)));
+   const total=sum(list,r=>Number(r.Budget||0));
+   const vendor=sum(list,r=>Number(r['Vendor Total']||0));
+   const profit=total-vendor;
+   const advance=sum(list,r=>Number(r.Advance||0));
+   const vendorPaid=sum(list,r=>Number(r['Vendor Paid']||0));
    const label=new Date(key+'-01T00:00:00').toLocaleDateString('en-PK',{month:'long',year:'numeric'});
-   return '<section class="completed-month"><div class="completed-month-head"><div><h4>'+esc(label)+'</h4><small>'+list.length+' completed order(s)</small></div><div class="completed-month-totals"><span>Total Bill <b>'+money(total)+'</b></span><span>Profit Earned <b>'+money(profit)+'</b></span></div></div><div class="tablewrap"><table><thead><tr><th>Booking ID</th><th>Customer</th><th>Event</th><th>Date</th><th>City</th><th>Total Bill</th><th>Profit</th><th>Status</th></tr></thead><tbody>'+list.map(r=>'<tr><td>'+esc(r['Booking ID']||'—')+'</td><td><button class="recent-link" data-completed-open="'+esc(r.__id)+'">'+esc(r.Customer||'Customer')+'</button></td><td>'+esc(r['Event Type']||'—')+'</td><td>'+esc(r['Event Date'])+'</td><td>'+esc(r.City||'—')+'</td><td><b>'+money(r.Budget||0)+'</b></td><td><b>'+money(Number(r.Budget||0)-Number(r['Vendor Total']||0))+'</b></td><td><span class="booking-status completed">Completed</span></td></tr>').join('')+'</tbody></table></div></section>';
+   return '<section class="completed-month"><div class="completed-month-head"><div><h4>'+esc(label)+'</h4><small>'+list.length+' completed order(s)</small></div></div><div class="completed-month-cards"><div class="completed-kpi"><small>Total Bill</small><strong>'+money(total)+'</strong></div><div class="completed-kpi"><small>Vendor Cost</small><strong>'+money(vendor)+'</strong></div><div class="completed-kpi profit"><small>Monthly Profit</small><strong>'+money(profit)+'</strong></div><div class="completed-kpi"><small>Customer Advance</small><strong>'+money(advance)+'</strong></div><div class="completed-kpi"><small>Vendor Paid</small><strong>'+money(vendorPaid)+'</strong></div></div><div class="tablewrap"><table><thead><tr><th>Booking ID</th><th>Customer</th><th>Event</th><th>Date</th><th>City</th><th>Total Bill</th><th>Vendor Cost</th><th>Profit</th><th>Status</th></tr></thead><tbody>'+list.map(r=>'<tr><td>'+esc(r['Booking ID']||'—')+'</td><td><button class="recent-link" data-completed-open="'+esc(r.__id)+'">'+esc(r.Customer||'Customer')+'</button></td><td>'+esc(r['Event Type']||'—')+'</td><td>'+esc(r.__monthlyDate)+'</td><td>'+esc(r.City||'—')+'</td><td><b>'+money(r.Budget||0)+'</b></td><td>'+money(r['Vendor Total']||0)+'</td><td><b>'+money(Number(r.Budget||0)-Number(r['Vendor Total']||0))+'</b></td><td><span class="booking-status completed">Completed</span></td></tr>').join('')+'</tbody></table></div></section>';
   }).join('');
+  $('completedMonthlyContent').innerHTML=html;
   document.querySelectorAll('[data-completed-open]').forEach(b=>b.onclick=()=>openBookingDetail(b.dataset.completedOpen));
- }catch(err){$('completedMonthlyContent').innerHTML='<div class="empty">'+esc(err.message||'Could not load completed bookings.')+'</div>';}
+ }catch(err){$('completedMonthlyContent').innerHTML='<div class="empty">Monthly report error: '+esc(err.message||'Could not load completed bookings.')+'</div>';}
 }
 $('completedMonthlyRefresh')?.addEventListener('click',openCompletedMonthly);
 async function openCalendar(){
