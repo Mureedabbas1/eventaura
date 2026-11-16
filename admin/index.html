@@ -889,8 +889,8 @@ async function openCompletedMonthly(){
   const groups={};
   done.forEach(r=>{
    const raw=String(r['Event Date']||'').trim();
-   const date=/^\\d{4}-\\d{2}-\\d{2}$/.test(raw)?raw:String(r['Completed At']||r.__created||'').slice(0,10);
-   if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(date))return;
+   const date=/^\d{4}-\d{2}-\d{2}$/.test(raw)?raw:String(r['Completed At']||r.__created||'').slice(0,10);
+   if(!/^\d{4}-\d{2}-\d{2}$/.test(date))return;
    const key=date.slice(0,7);
    (groups[key]=groups[key]||[]).push({...r,__monthlyDate:date});
   });
