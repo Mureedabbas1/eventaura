@@ -45,6 +45,10 @@ th{color:#b8a8b5}
 .completed-kpi strong{font-size:clamp(13px,1.5vw,18px);color:var(--ink);overflow-wrap:anywhere}
 .completed-kpi.profit{background:linear-gradient(145deg,#fffaf0,#f8f0df);border-color:#ead9b5}
 .completed-kpi.profit strong{color:#8b672b}
+
+.completed-month .monthly-subhead{font-size:12px;margin:18px 0 9px;color:var(--ink)}
+.completed-month .cancelled-heading{color:#a33b56}
+.completed-month-cards.cancelled-kpis .completed-kpi{background:#fff8f8;border-color:#f0d9df}
 .completed-month{border:1px solid var(--line);border-radius:14px;padding:15px;margin:14px 0;background:#fff}.completed-month-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:12px}.completed-month-head h4{font:18px 'Playfair Display';margin:0 0 4px}.completed-month-head small{color:var(--muted);font-size:11px}.completed-month-totals{display:flex;gap:16px;flex-wrap:wrap}.completed-month-totals span{display:grid;gap:4px;color:var(--muted);font-size:10px}.completed-month-totals b{font-size:12px;color:var(--ink)}.completed-month .tablewrap{border:1px solid var(--line);border-radius:10px}@media(max-width:650px){.completed-month-head{align-items:flex-start;flex-direction:column}.completed-month-totals{width:100%;justify-content:space-between}}
 /* Professional booking register */
 .booking-row td{padding:14px 10px;vertical-align:middle;border-bottom:1px solid #49404a}
@@ -647,7 +651,7 @@ $('navLogout').onclick=()=>$('logoutBtn').click();
 }
 async function fetchRows(module,limit=500){const {data,error}=await sb.from(module).select('id,record,created_at,updated_at').order('created_at',{ascending:false}).limit(limit);if(error)throw error;return data||[];}
 function displayRecord(row){return {...(row.record||{}),__id:row.id,__created:row.created_at};}
-async function openModule(name){$('bookingDetail').classList.remove('active');currentModule=name;document.querySelectorAll('[data-module]').forEach(b=>b.classList.toggle('active',b.dataset.module===name));$('dashboard').classList.remove('active');$('records').classList.add('active');$('pageTitle').textContent=MODULES[name].label;$('recordTitle').textContent=MODULES[name].label;$('editor').classList.add('hidden');$('tableBody').innerHTML='<tr><td class="empty">Loading…</td></tr>';try{records=(await fetchRows(name)).map(displayRecord);renderTable()}catch(err){$('tableBody').innerHTML='<tr><td class="empty">'+esc(err.message)+'</td></tr>'}}
+async function openModule(name){$('bookingDetail').classList.remove('active');currentModule=name;document.querySelectorAll('[data-module]').forEach(b=>b.classList.toggle('active',b.dataset.module===name));$('dashboard').classList.remove('active');$('records').classList.add('active');$('pageTitle').textContent=MODULES[name].label;$('recordTitle').textContent=MODULES[name].label;$('editor').classList.add('hidden');$('tableBody').innerHTML='<tr><td class="empty">Loading…</td></tr>';try{records=(await fetchRows(name)).map(displayRecord);if(name==='payments'){const bookingRows=(await fetchRows('bookings',1000)).map(displayRecord);const cancelledIds=new Set(bookingRows.filter(x=>String(x.Status||'').trim().toLowerCase()==='cancelled').map(x=>String(x['Booking ID']||'')));records=records.filter(p=>!cancelledIds.has(String(p['Booking ID']||'')));$('recordHint').textContent='Cancelled bookings ki payments yahan active totals se exclude hain; unki history Monthly Completed & Cancelled section mein mehfooz hai.';}else $('recordHint').textContent='Records are stored securely in Supabase.';renderTable()}catch(err){$('tableBody').innerHTML='<tr><td class="empty">'+esc(err.message)+'</td></tr>'}}
 function eventAuraWhatsApp(row){
  const raw=String(row.Phone||'').replace(/\D/g,'');
  const phone=raw.startsWith('0')?'92'+raw.slice(1):raw.startsWith('92')?raw:raw.startsWith('3')?'92'+raw:raw;
@@ -878,48 +882,45 @@ function eventAuraInvoice(row){
 let calMonth=new Date(new Date().getFullYear(),new Date().getMonth(),1),calRows=[];
 async function openCompletedMonthly(){
  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
- $('bookingDetail').classList.remove('active');
- $('completedMonthlyView').classList.add('active');
+ $('bookingDetail').classList.remove('active');$('completedMonthlyView').classList.add('active');
  document.querySelectorAll('[data-module],[data-route]').forEach(b=>b.classList.toggle('active',b.dataset.route==='completed-events'));
- $('pageTitle').textContent='Monthly Completed Orders';
- $('completedMonthlyContent').innerHTML='<div class="empty">Loading completed bookings…</div>';
+ $('pageTitle').textContent='Monthly Completed & Cancelled Orders';
+ $('completedMonthlyContent').innerHTML='<div class="empty">Loading monthly records…</div>';
  try{
   const rows=(await fetchRows('bookings',1000)).map(displayRecord);
-  const done=rows.filter(r=>String(r.Status||'').trim().toLowerCase()==='completed');
   const groups={};
-  done.forEach(r=>{
+  const validDate=x=>/^\d{4}-\d{2}-\d{2}$/.test(String(x||''));
+  rows.filter(r=>['completed','cancelled'].includes(String(r.Status||'').trim().toLowerCase())).forEach(r=>{
+   const status=String(r.Status||'').trim().toLowerCase();
    const raw=String(r['Event Date']||'').trim();
-   const date=/^\d{4}-\d{2}-\d{2}$/.test(raw)?raw:String(r['Completed At']||r.__created||'').slice(0,10);
-   if(!/^\d{4}-\d{2}-\d{2}$/.test(date))return;
+   const date=validDate(raw)?raw:String(r[status==='completed'?'Completed At':'Cancelled At']||r.__created||'').slice(0,10);
+   if(!validDate(date))return;
    const key=date.slice(0,7);
-   (groups[key]=groups[key]||[]).push({...r,__monthlyDate:date});
+   (groups[key]=groups[key]||{completed:[],cancelled:[]})[status].push({...r,__monthlyDate:date});
   });
   const keys=Object.keys(groups).sort((a,b)=>b.localeCompare(a));
-  if(!keys.length){
-   $('completedMonthlyContent').innerHTML='<div class="empty">Database se '+done.length+' Completed booking(s) mili, lekin unki valid Event Date/Completion Date nahi mili.</div>';
-   return;
-  }
-  const all=keys.flatMap(k=>groups[k]);
+  if(!keys.length){$('completedMonthlyContent').innerHTML='<div class="empty">Abhi tak koi Completed ya Cancelled booking nahi mili.</div>';return;}
   const sum=(list,fn)=>list.reduce((n,r)=>n+fn(r),0);
-  const billAll=sum(all,r=>Number(r.Budget||0));
-  const vendorAll=sum(all,r=>Number(r['Vendor Total']||0));
-  const profitAll=billAll-vendorAll;
-  const paidAll=sum(all,r=>Number(r.Advance||0));
-  const vendorPaidAll=sum(all,r=>Number(r['Vendor Paid']||0));
-  let html='<div class="completed-overview"><div class="completed-kpi"><small>Completed Orders</small><strong>'+all.length+'</strong></div><div class="completed-kpi"><small>Total Revenue</small><strong>'+money(billAll)+'</strong></div><div class="completed-kpi"><small>Vendor Cost</small><strong>'+money(vendorAll)+'</strong></div><div class="completed-kpi profit"><small>Total Profit</small><strong>'+money(profitAll)+'</strong></div></div>';
-  html+=keys.map(key=>{
-   const list=groups[key].sort((a,b)=>String(a.__monthlyDate).localeCompare(String(b.__monthlyDate)));
-   const total=sum(list,r=>Number(r.Budget||0));
-   const vendor=sum(list,r=>Number(r['Vendor Total']||0));
-   const profit=total-vendor;
-   const advance=sum(list,r=>Number(r.Advance||0));
-   const vendorPaid=sum(list,r=>Number(r['Vendor Paid']||0));
+  let html='';
+  keys.forEach(key=>{
+   const completed=groups[key].completed,cancelled=groups[key].cancelled;
+   const bill=sum(completed,r=>Number(r.Budget||0)),vendor=sum(completed,r=>Number(r['Vendor Total']||0));
+   const profit=bill-vendor,received=sum(completed,r=>Number(r.Advance||0)),vendorPaid=sum(completed,r=>Number(r['Vendor Paid']||0));
+   const cancelledBill=sum(cancelled,r=>Number(r.Budget||0)),cancelledAdvance=sum(cancelled,r=>Number(r.Advance||0));
    const label=new Date(key+'-01T00:00:00').toLocaleDateString('en-PK',{month:'long',year:'numeric'});
-   return '<section class="completed-month"><div class="completed-month-head"><div><h4>'+esc(label)+'</h4><small>'+list.length+' completed order(s)</small></div></div><div class="completed-month-cards"><div class="completed-kpi"><small>Total Bill</small><strong>'+money(total)+'</strong></div><div class="completed-kpi"><small>Vendor Cost</small><strong>'+money(vendor)+'</strong></div><div class="completed-kpi profit"><small>Monthly Profit</small><strong>'+money(profit)+'</strong></div><div class="completed-kpi"><small>Customer Advance</small><strong>'+money(advance)+'</strong></div><div class="completed-kpi"><small>Vendor Paid</small><strong>'+money(vendorPaid)+'</strong></div></div><div class="tablewrap"><table><thead><tr><th>Booking ID</th><th>Customer</th><th>Event</th><th>Date</th><th>City</th><th>Total Bill</th><th>Vendor Cost</th><th>Profit</th><th>Status</th></tr></thead><tbody>'+list.map(r=>'<tr><td>'+esc(r['Booking ID']||'—')+'</td><td><button class="recent-link" data-completed-open="'+esc(r.__id)+'">'+esc(r.Customer||'Customer')+'</button></td><td>'+esc(r['Event Type']||'—')+'</td><td>'+esc(r.__monthlyDate)+'</td><td>'+esc(r.City||'—')+'</td><td><b>'+money(r.Budget||0)+'</b></td><td>'+money(r['Vendor Total']||0)+'</td><td><b>'+money(Number(r.Budget||0)-Number(r['Vendor Total']||0))+'</b></td><td><span class="booking-status completed">Completed</span></td></tr>').join('')+'</tbody></table></div></section>';
-  }).join('');
+   html+='<section class="completed-month"><div class="completed-month-head"><div><h4>'+esc(label)+'</h4><small>Monthly completed and cancelled booking summary</small></div></div>';
+   html+='<div class="completed-month-cards"><div class="completed-kpi"><small>Completed Orders</small><strong>'+completed.length+'</strong></div><div class="completed-kpi"><small>Completed Revenue</small><strong>'+money(bill)+'</strong></div><div class="completed-kpi"><small>Vendor Cost</small><strong>'+money(vendor)+'</strong></div><div class="completed-kpi profit"><small>Profit Earned</small><strong>'+money(profit)+'</strong></div><div class="completed-kpi"><small>Customer Advance</small><strong>'+money(received)+'</strong></div><div class="completed-kpi"><small>Vendor Paid</small><strong>'+money(vendorPaid)+'</strong></div></div>';
+   html+='<div class="completed-month-cards cancelled-kpis"><div class="completed-kpi"><small>Cancelled Orders</small><strong>'+cancelled.length+'</strong></div><div class="completed-kpi"><small>Cancelled Bill Value (Excluded)</small><strong>'+money(cancelledBill)+'</strong></div><div class="completed-kpi"><small>Advance on Cancelled Bookings</small><strong>'+money(cancelledAdvance)+'</strong></div></div>';
+   const renderRows=(list,status)=>list.length?'<div class="tablewrap"><table><thead><tr><th>Booking ID</th><th>Customer</th><th>Event</th><th>Date</th><th>City</th><th>Total Bill</th><th>Advance</th><th>Vendor Cost</th><th>Profit</th><th>Status</th></tr></thead><tbody>'+list.sort((a,b)=>String(a.__monthlyDate).localeCompare(String(b.__monthlyDate))).map(r=>{
+    const isCancelled=status==='cancelled';
+    return '<tr><td>'+esc(r['Booking ID']||'—')+'</td><td><button class="recent-link" data-completed-open="'+esc(r.__id)+'">'+esc(r.Customer||'Customer')+'</button></td><td>'+esc(r['Event Type']||'—')+'</td><td>'+esc(r.__monthlyDate)+'</td><td>'+esc(r.City||'—')+'</td><td>'+money(r.Budget||0)+'</td><td>'+money(r.Advance||0)+'</td><td>'+money(r['Vendor Total']||0)+'</td><td><b>'+(isCancelled?'Excluded':money(Number(r.Budget||0)-Number(r['Vendor Total']||0)))+'</b></td><td><span class="booking-status '+(isCancelled?'cancelled':'completed')+'">'+(isCancelled?'Cancelled':'Completed')+'</span></td></tr>';
+   }).join('')+'</tbody></table></div>':'<div class="empty">No '+status+' bookings in this month.</div>';
+   html+='<h5 class="monthly-subhead">Completed Bookings</h5>'+renderRows(completed,'completed');
+   html+='<h5 class="monthly-subhead cancelled-heading">Cancelled Bookings · Excluded from active money totals</h5>'+renderRows(cancelled,'cancelled')+'</section>';
+  });
   $('completedMonthlyContent').innerHTML=html;
   document.querySelectorAll('[data-completed-open]').forEach(b=>b.onclick=()=>openBookingDetail(b.dataset.completedOpen));
- }catch(err){$('completedMonthlyContent').innerHTML='<div class="empty">Monthly report error: '+esc(err.message||'Could not load completed bookings.')+'</div>';}
+ }catch(err){$('completedMonthlyContent').innerHTML='<div class="empty">Monthly report error: '+esc(err.message||'Could not load bookings.')+'</div>';}
 }
 $('completedMonthlyRefresh')?.addEventListener('click',openCompletedMonthly);
 async function openCalendar(){
