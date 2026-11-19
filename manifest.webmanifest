@@ -10,10 +10,10 @@
   "description": "EventAura — Event Styling web app",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "/ev.jpg?v=6",
       "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any"
+      "type": "image/jpeg",
+      "purpose": "any maskable"
     }
   ]
 }
