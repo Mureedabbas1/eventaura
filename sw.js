@@ -1,6 +1,6 @@
 /* EventAura PWA service worker. Network-first pages; cache only same-origin shell/assets. */
-const CACHE="eventaura-pwa-v1";
-const SHELL=["/","/manifest.webmanifest","/favicon.svg"];
+const CACHE="eventaura-pwa-v2";
+const SHELL=["/","/manifest.webmanifest","/ev.jpg?v=6"];
 self.addEventListener("install",event=>{
  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()));
 });
