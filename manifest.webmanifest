@@ -1,0 +1,19 @@
+{
+  "id": "/",
+  "name": "EventAura — Event Styling",
+  "short_name": "EventAura",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fff8fb",
+  "theme_color": "#fff8fb",
+  "description": "EventAura — Event Styling web app",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
