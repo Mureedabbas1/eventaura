@@ -196,6 +196,66 @@ html[data-theme="dark"] .theme-toggle{background:#332633!important;color:#ffe0eb
 @media(max-width:640px){#pwa-install-cta{left:50%;bottom:calc(12px + env(safe-area-inset-bottom));transform:translateX(-50%);white-space:nowrap}#pwa-install-cta:hover{transform:translateX(-50%) translateY(-2px)}}
 @media(display-mode:standalone){#pwa-install-cta{display:none!important}}
 </style>
+
+<style id="eventaura-mobile-app-polish">
+@media(max-width:700px){
+  html{scroll-padding-top:76px;-webkit-text-size-adjust:100%}
+  body{overflow-x:hidden}
+  .container{width:calc(100% - 28px);max-width:100%}
+  header{top:0}
+  .nav{height:68px;gap:8px}
+  .brand img{width:43px;height:43px}
+  .brand-name{font-size:21px}
+  .nav-actions{margin-left:auto}
+  .theme-toggle{min-height:40px;padding:8px 10px;font-size:11px}
+  .menu{display:grid;place-items:center;width:42px;height:42px;border:1px solid #ead5df;border-radius:13px;background:#fff;color:var(--pink-dark)}
+  .navlinks{top:67px;left:10px;right:10px;padding:12px;border:1px solid #f0dfe6;border-radius:0 0 18px 18px;box-shadow:0 14px 30px rgba(105,48,72,.12)}
+  .navlinks a{display:flex;align-items:center;justify-content:center;width:100%;min-height:46px;border-radius:12px}
+  .hero{padding:34px 0 42px}
+  .hero-grid{grid-template-columns:minmax(0,1fr);gap:22px}
+  h1{font-size:clamp(38px,10vw,52px);line-height:1.06;letter-spacing:-.8px}
+  .hero-copy{font-size:14px;line-height:1.75}
+  .hero-actions{display:grid;grid-template-columns:1fr;gap:10px;margin-top:22px}
+  .hero-actions .btn{width:100%;min-height:48px}
+  .hero-art{min-height:330px}
+  .hero-photo{inset:0 18px}
+  .floating-card{left:0;bottom:12px;max-width:85%;padding:12px 14px}
+  .trust{padding:18px 0}
+  .trust-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:11px}
+  section{padding:52px 0}
+  .section-head{margin-bottom:24px;padding-inline:4px}
+  .service-grid,.steps,.team-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .service-card,.step,.team-card{min-width:0;border-radius:16px}
+  .service-card img{height:165px}
+  .service-body{padding:15px}
+  .service-body h3{font-size:19px}
+  .service-body p{font-size:12px}
+  .about-grid,.contact-grid{grid-template-columns:minmax(0,1fr);gap:24px}
+  .about-image{height:300px;order:0}
+  .feature-list{grid-template-columns:1fr 1fr;gap:10px}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:160px 160px 160px;gap:9px}
+  .gallery-grid img:first-child,.gallery-grid img:last-child{grid-row:auto;grid-column:auto}
+  .real-gallery,.portfolio-grid,.theme-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .real-gallery img{height:170px}
+  .booking-form{padding:18px 14px;border-radius:17px}
+  .form-row{grid-template-columns:minmax(0,1fr);gap:0}
+  input:not([type=checkbox]):not([type=radio]):not([type=range]),select,textarea{font-size:16px;max-width:100%}
+  button,.btn,[role=button],input[type=submit]{min-height:44px}
+  .footer-links a{min-height:44px;display:inline-flex;align-items:center}
+  #pwa-install-cta{bottom:calc(10px + env(safe-area-inset-bottom))}
+}
+@media(max-width:390px){
+  .service-grid,.steps,.team-grid,.real-gallery,.portfolio-grid,.theme-grid{grid-template-columns:minmax(0,1fr)}
+  .hero-art{min-height:285px}
+  .gallery-grid{grid-template-rows:140px 140px 140px}
+  .trust-row{grid-template-columns:1fr}
+}
+@media(display-mode:standalone){
+  body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+  header{top:env(safe-area-inset-top)}
+}
+</style>
+
 </head>
 <body>
   <div id="eventaura-welcome" role="status" aria-label="Welcome to EventAura">
